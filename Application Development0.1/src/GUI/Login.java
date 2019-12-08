@@ -1,5 +1,8 @@
 
 package GUI;
+
+import java.sql.*;
+import javax.swing.JOptionPane;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -112,14 +115,40 @@ public class Login extends Application {
 		loginButton.setAlignment(Pos.CENTER);
 		input.setMargin(loginButton, new Insets(5, 5, 5, 5) );
 		loginButton .setOnAction(e -> {
-			MainApplication ma = new MainApplication();
-			try {
-				ma.start(window);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+			
+			if(nameInput.getText().isEmpty()|| passInput.getText().isEmpty()) {
+        		AlertBox.display("ERROR!", "Please Enter in your Username, and Password");     		
+        	}
+        	else {
+        		try {
+        			MainApplication ma = new MainApplication();
+        			Class.forName("com.mysql.jdbc.Driver");
+					Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+					Statement stmt=con.createStatement();
+					String sql="Select * from users where user_id='"+nameInput.getText()+"' and password='"+passInput.getText()
+					.toString()+"'";
+					ResultSet rs=stmt.executeQuery(sql);		
+					if(rs.next()) { 
+						ma.start(window);
+					}
+					else
+						AlertBox.display("ERROR!", "Incorrect Password");   
+					con.close();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+  				
+			} 
+		
+        	 }
+			);
+		
+		
 	
 		Button forgotPasswordButton = new Button("Forgot Password");
 		forgotPasswordButton.setMinSize(200, 20);
@@ -150,6 +179,8 @@ public class Login extends Application {
 				e1.printStackTrace();
 			}
 		});
+		
+		
 		
 		input.getChildren().addAll(headerLabel,nameInput, passInput, loginButton, forgotPasswordButton, registrationButton);
 		
