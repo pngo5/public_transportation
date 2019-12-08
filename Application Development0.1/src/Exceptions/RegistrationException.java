@@ -7,8 +7,14 @@ import java.util.regex.Pattern;
 public class RegistrationException {
 	
 	
-
-
+   /**
+    * 
+    */
+	public static boolean isZip(User u) {		
+		Pattern zipi = Pattern.compile("[^[0-9]{5}(?:-[0-9]{4})?$]");
+		Matcher zipu = zipi.matcher(u.getPassword());
+		return zipu.find();
+	}
 
 	/****
 	 * 

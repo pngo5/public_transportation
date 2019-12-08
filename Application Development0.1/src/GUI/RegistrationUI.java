@@ -231,7 +231,7 @@ public class RegistrationUI extends Application {
         	}else if(re.lengthUsernameCheck(user) == false){
         		AlertBox.display("Incorrect Username Input","Make the length between 4 and 15 characters long");
         		
-        	}else {
+        	}else if(){
         		
         		
         		try {
@@ -263,7 +263,7 @@ public class RegistrationUI extends Application {
         
         window.show();
 
-		//
+		
 		
 		
 	}
