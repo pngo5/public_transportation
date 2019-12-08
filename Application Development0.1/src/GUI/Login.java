@@ -125,8 +125,7 @@ public class Login extends Application {
         			Class.forName("com.mysql.jdbc.Driver");
 					Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 					Statement stmt=con.createStatement();
-					String sql="Select * from users where user_id='"+nameInput.getText()+"' and password='"+passInput.getText()
-					.toString()+"'";
+					String sql="SELECT * FROM users WHERE BINARY user_id='"+nameInput.getText()+"' AND BINARY password='"+passInput.getText().toString()+"'";
 					ResultSet rs=stmt.executeQuery(sql);		
 					if(rs.next()) { 
 						ma.start(window);
