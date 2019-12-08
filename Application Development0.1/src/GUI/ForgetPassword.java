@@ -64,6 +64,8 @@ public void start(Stage primaryStage) throws Exception {
 	    
 	    TextField testUsername = new TextField();
 	    testUsername.setPromptText("Username");
+	    testUsername.setPrefWidth(235);
+	    testUsername.setMaxWidth(235);
 	    grid.add(testUsername,1,1);
 	    
 	       //Add Security Question Label
@@ -84,16 +86,17 @@ public void start(Stage primaryStage) throws Exception {
         grid.add(securityALabel, 0, 5);
         
         PasswordField securityQuestion = new PasswordField();
-        securityQuestion.setPrefHeight(20);
+        securityQuestion.setPrefWidth(235);
+        securityQuestion.setMaxWidth(235);
         securityQuestion.setPromptText("Security Answer");
         grid.add( securityQuestion, 1,5); 
         
         
-        Button loginButton = new Button("Change Password");
+        Button loginButton = new Button("Show Password");
         loginButton.setAlignment(Pos.CENTER);
         grid.add(loginButton,1,6); 
         loginButton.setOnAction(e -> {
-			ChangingPassword m1 = new ChangingPassword();
+			Login m1 = new Login();
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
@@ -103,6 +106,8 @@ public void start(Stage primaryStage) throws Exception {
 				stmta.setString(3, securityQuestion.getText());
 				ResultSet rsa = stmta.executeQuery();
 				if(rsa.next()) { 
+					String s = rsa.getString("password");
+                    AlertBox.display("Your password is: ", s);
 					m1.start(window);
 				}
 				else 

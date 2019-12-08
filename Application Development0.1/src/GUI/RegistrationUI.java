@@ -6,6 +6,7 @@ import Objects.User;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -98,7 +100,8 @@ public class RegistrationUI extends Application {
 
         // Add Name First Name Text Field
         TextField firstNameText = new TextField();
-        firstNameText.setPrefHeight(20);
+        firstNameText.setPrefWidth(230);
+        firstNameText.setMaxWidth(230);
         firstNameText.setPromptText("First Name");
 
         gridPane.add(firstNameText, 1,1);
@@ -109,7 +112,8 @@ public class RegistrationUI extends Application {
         
         // Add Last Name Text Field
         TextField lastNameText = new TextField();
-        lastNameText.setPrefHeight(20);
+        lastNameText.setPrefWidth(230);
+        lastNameText.setMaxWidth(230);
         lastNameText.setPromptText("Last Name");
 
         gridPane.add(lastNameText, 1, 2);
@@ -120,7 +124,8 @@ public class RegistrationUI extends Application {
         
         // Add Address Text Field
         TextField addressText = new TextField();
-        addressText.setPrefHeight(20);
+        addressText.setPrefWidth(230);
+        addressText.setMaxWidth(230);
         addressText.setPromptText("Address");
         gridPane.add(addressText, 1,3);
         
@@ -130,7 +135,8 @@ public class RegistrationUI extends Application {
         
         // Add zip Text Field
         TextField zipText = new TextField();
-        zipText.setPrefHeight(20);
+        zipText.setPrefWidth(230);
+        zipText.setMaxWidth(230);;
         zipText.setPromptText("Zip Code");
         gridPane.add(zipText, 1,4);
         
@@ -138,8 +144,10 @@ public class RegistrationUI extends Application {
         Label stateLabel = new Label("State Name : ");
         gridPane.add(stateLabel, 0,5);     
         //Add state drop down menu
-        stateBox = new TextField();
-        zipText.setPromptText("Select ");
+        TextField stateBox = new TextField();
+        stateBox.setPromptText("State");
+        stateBox.setPrefWidth(230);
+        stateBox.setMaxWidth(230);;
         gridPane.add(stateBox, 1, 5);
         
         
@@ -149,8 +157,9 @@ public class RegistrationUI extends Application {
         
         //Add email Text Field
         emailText = new TextField();
-        emailText.setPrefHeight(20);
         emailText.setPromptText("Email");
+        emailText.setPrefWidth(230);
+        emailText.setMaxWidth(230);
         gridPane.add(emailText, 1,6); 
         
         //Add Username Label
@@ -159,8 +168,9 @@ public class RegistrationUI extends Application {
         
         //Add email Username text
         usernameText = new TextField();
-        usernameText.setPrefHeight(20);
         usernameText.setPromptText("Username");
+        usernameText.setPrefWidth(230);
+        usernameText.setMaxWidth(230);
         gridPane.add(usernameText, 1,7); 
         
         
@@ -170,7 +180,8 @@ public class RegistrationUI extends Application {
         
         //Add password text
         passwordText = new PasswordField();
-        passwordText.setPrefHeight(20);
+        passwordText.setPrefWidth(230);
+        passwordText.setMaxWidth(230);
         passwordText.setPromptText("Password");
         gridPane.add(passwordText, 1,8); 
         
@@ -180,6 +191,8 @@ public class RegistrationUI extends Application {
         
         //Add SSN text field
         ssnTextField = new PasswordField();
+        ssnTextField.setPrefWidth(230);
+        ssnTextField.setMaxWidth(230);
         ssnTextField.setPromptText("Social Security Number");
         gridPane.add(ssnTextField, 1, 9);
         
@@ -202,13 +215,16 @@ public class RegistrationUI extends Application {
         
         //Add Security Answer Field
         securityATextField = new TextField();
+        securityATextField .setPrefWidth(230);
+        securityATextField .setMaxWidth(230);
         securityATextField.setPromptText("Security Answer");
+        
         gridPane.add(securityATextField, 1, 11);
         
         Button backToMain = new Button();
         	//Adding back to Main Menu button
-        	backToMain = new Button("Back To Main Menu");
-      		gridPane.add(backToMain, 1, 12);
+        	backToMain = new Button("Back");
+      		gridPane.add(backToMain, 0, 12);
       		backToMain.setOnAction(e -> {
       			Login mm = new Login();
       			try {
@@ -278,10 +294,10 @@ public class RegistrationUI extends Application {
         	}
         });
         
-        gridPane.add(registerButton, 0, 12);
+        gridPane.add(registerButton, 1, 12);
         
         // Create a scene with registration form 
- 		Scene scene = new Scene(gridPane, 700, 600);
+ 		Scene scene = new Scene(gridPane, 500, 600);
  		scene.getStylesheets().add("Layout.css");
         // Set the scene in primary stage	
         window.setScene(scene);
@@ -318,6 +334,9 @@ public class RegistrationUI extends Application {
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
 
         return gridPane;
+        
+        
+    
 	}
 	
 
