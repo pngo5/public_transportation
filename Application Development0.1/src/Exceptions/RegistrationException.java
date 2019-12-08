@@ -1,9 +1,9 @@
 package Exceptions;
 
-
+import Objects.User;
+import GUI.RegistrationUI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class RegistrationException {
 	
 	
@@ -20,8 +20,8 @@ public class RegistrationException {
 	 * 
 	 * 
 	 */
-	public static boolean lengthPasswordCheck(String newPassword) {
-		if (newPassword.length() < 20 && newPassword.length() >= 4) {
+	public static boolean lengthPasswordCheck(User u) {
+		if (u.getPassword().length() < 20 && u.getPassword().length() >= 4) {
 			return true;
 		} else {
 			return false;
@@ -35,8 +35,9 @@ public class RegistrationException {
 	 * */
 	
 	
-	public static boolean lengthUsernameCheck(String newUsername) {
-		if (newUsername.length() < 15 && newUsername.length() >= 4) {
+	public boolean lengthUsernameCheck(User u) {
+		
+		if (u.getUserName().length() <= 15 && u.getUserName().length() >= 4) {
 			return true;
 		} else {
 			return false;
@@ -58,9 +59,9 @@ public class RegistrationException {
 	 * @param newPassword
 	 * @return
 	 */
-	public static boolean hasSpecialCharacter(String newPassword) {
+	public static boolean hasSpecialCharacter(User u) {
 		Pattern special = Pattern.compile("[^a-zA-Z]");
-		Matcher hasSpecial = special.matcher(newPassword);
+		Matcher hasSpecial = special.matcher(u.getPassword());
 		return hasSpecial.find();
 	}
 
@@ -72,9 +73,9 @@ public class RegistrationException {
 	 * if not return false
 	 * 
 	 **/
-	public static boolean hasUpperCase(String newPassword) {
+	public static boolean hasUpperCase(User u) {
 		Pattern upperCase = Pattern.compile("[A-Z]");
-		Matcher hasUpper = upperCase.matcher(newPassword);
+		Matcher hasUpper = upperCase.matcher(u.getPassword());
 		return hasUpper.find();
 	}
 
@@ -85,9 +86,9 @@ public class RegistrationException {
 	 * @param newPassword
 	 * @return
 	 */
-	public static boolean hasDigit(String newPassword) {
+	public static boolean hasDigit(User u) {
 		Pattern digit = Pattern.compile("[0-9]");
-		Matcher hasDigit = digit.matcher(newPassword);
+		Matcher hasDigit = digit.matcher(u.getPassword());
 		return hasDigit.find();
 	}
 
@@ -97,9 +98,9 @@ public class RegistrationException {
 	 * @param newPassword
 	 * @return
 	 */
-	public static boolean hasSpace(String newPassword) {
+	public static boolean hasSpace(User u) {
 		Pattern space = Pattern.compile("[ ]");
-		Matcher hasSpace = space.matcher(newPassword);
+		Matcher hasSpace = space.matcher(u.getPassword());
 		return hasSpace.find();
 	}
 
@@ -126,9 +127,9 @@ public class RegistrationException {
 	 *
 	 */
 
-	public static boolean hasCorrectSnn(String newPassword) {
+	public static boolean hasCorrectSnn(User u) {
 		Pattern snn = Pattern.compile("^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$");
-		Matcher hasCorrectSnn = snn.matcher(newPassword);
+		Matcher hasCorrectSnn = snn.matcher(u.getSsn());
 		return hasCorrectSnn.find();
 	}
 	 /**
@@ -151,9 +152,9 @@ public class RegistrationException {
 	  * 
 	  */
 	 
-	public static boolean emailValid(String newEmail) {
+	public static boolean emailValid(User u) {
 		Pattern email = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
-		Matcher emailValid = email.matcher(newEmail);
+		Matcher emailValid = email.matcher(u.getEmail());
 		return emailValid.find();
 		
 	}

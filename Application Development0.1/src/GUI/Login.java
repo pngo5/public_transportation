@@ -137,12 +137,12 @@ public class Login extends Application {
 	
 		
 		//Back button which takes the user back to the main menu
-		Button backButton = new Button("Go Back");
-		backButton.setMinSize(200, 20);
-		backButton.setAlignment(Pos.CENTER);
-		input.setMargin(backButton, new Insets(5, 5, 5, 5) );
-		backButton.setOnAction(e -> {
-			MainMenu mm = new MainMenu();
+		Button registrationButton = new Button("Registration");
+		registrationButton.setMinSize(200, 20);
+		registrationButton.setAlignment(Pos.CENTER);
+		input.setMargin(registrationButton, new Insets(5, 5, 5, 5) );
+		registrationButton.setOnAction(e -> {
+			RegistrationUI mm = new RegistrationUI();
 			try {
 				mm.start(window);
 			} catch (Exception e1) {
@@ -151,11 +151,10 @@ public class Login extends Application {
 			}
 		});
 		
-		input.getChildren().addAll(headerLabel,nameInput, passInput, loginButton, forgotPasswordButton, backButton);
+		input.getChildren().addAll(headerLabel,nameInput, passInput, loginButton, forgotPasswordButton, registrationButton);
 		
 		return input;
 		
 	}
-	
 
 }

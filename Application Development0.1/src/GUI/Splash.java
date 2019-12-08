@@ -36,7 +36,7 @@ public class Splash extends Application {
 	   catch(InterruptedException e) {}	
 		window.dispose();
 		
-		MainMenu mm = new MainMenu();
+		Login mm = new Login();
 		
 		try {
 		mm.start(primaryStage);

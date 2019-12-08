@@ -102,7 +102,7 @@ public class MainApplication extends Application {
 		backToMainMenu = new Button("Main Menu");
 		topRightGrid.add(backToMainMenu, 0, 0);
 		backToMainMenu.setOnAction(e -> {
-			MainMenu mm = new MainMenu();
+			Login mm = new Login();
 			try {
 				mm.start(window);
 			} catch (Exception e1) {
@@ -115,7 +115,7 @@ public class MainApplication extends Application {
 		logOut = new Button("Log Out");
 		topRightGrid.add(logOut, 0, 1);
 		logOut.setOnAction(e -> {
-			MainMenu mm = new MainMenu();
+			Login mm = new Login();
 			try {
 				mm.start(window);
 			} catch (Exception e1) {
@@ -160,7 +160,6 @@ public class MainApplication extends Application {
 	 * @return
 	 */
 
-
 	public ObservableList<BusSystem> getBusSystem(){
 
 		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
@@ -187,11 +186,13 @@ public class MainApplication extends Application {
 
 		productSelected.forEach(allProducts::remove);
 	}
+	
 	/**
 	 * Creates the view tables
 	 * 
 	 * @return
 	 */
+	
 	public VBox createTable() {
 
 		/**
@@ -236,6 +237,53 @@ public class MainApplication extends Application {
 
 	}
 
+	public VBox createScheduleTable() {
+
+		/**
+		 * 
+		 * Creating view column for User and matching it to their respective instances.
+		 * 
+		 */
+		busNumber = new TableColumn<>("Bus ID");
+        busNumber.setMinWidth(60);
+        busNumber.setCellValueFactory(new PropertyValueFactory<>("busNumber"));
+
+		startTime = new TableColumn<>("Start Time");
+		startTime.setMinWidth(60);
+		startTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+
+		endTime = new TableColumn<>("End Time");
+		endTime.setMinWidth(60);
+		endTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+
+		startLocation = new TableColumn<>("Start Location");
+		startLocation.setMinWidth(60);
+		startLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+
+		endLocation = new TableColumn<>("End Location");
+		endLocation.setMinWidth(60);
+		endLocation.setCellValueFactory(new PropertyValueFactory<>("endLocation"));
+
+		ticketPrice = new TableColumn<>("Ticket Price");
+		ticketPrice.setMinWidth(60);
+		ticketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
+
+		// Creating table
+
+		table = new TableView<>();
+
+		// Populating table system
+
+		table.setItems(getBusSystem());
+		table.getColumns().addAll(busNumber, startTime, endTime, startLocation, endLocation, ticketPrice);
+
+		// Adding the table to a VbOX
+		VBox vBox = new VBox();
+		vBox.getChildren().addAll(table);
+
+		return vBox;
+
+	}
 	/**
 	 * Start the main application
 	 * 
