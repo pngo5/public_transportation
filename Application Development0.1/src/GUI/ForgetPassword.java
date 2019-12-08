@@ -1,5 +1,10 @@
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -88,7 +93,19 @@ public void start(Stage primaryStage) throws Exception {
         loginButton.setOnAction(e -> {
 			ChangingPassword m1 = new ChangingPassword();
 			try {
-				m1.start(primaryStage);
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+				PreparedStatement stmta = con.prepareStatement("SELECT * FROM users WHERE BINARY user_id=? AND question=? AND answer=?");
+				stmta.setString(1, testUsername.getText());
+				stmta.setString(2,securityQChoiceBox.getValue());
+				stmta.setString(3, securityQuestion.getText());
+				ResultSet rsa = stmta.executeQuery();
+				if(rsa.next()) { 
+					m1.start(window);
+				}
+				else 
+					AlertBox.display("ERROR!", "Incorrect Information!");   
+				con.close();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

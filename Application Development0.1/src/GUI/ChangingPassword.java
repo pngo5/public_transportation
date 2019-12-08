@@ -1,5 +1,7 @@
 package GUI;
 
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -82,17 +84,18 @@ public class ChangingPassword extends Application {
 				Login m1 = new Login();
 				try {
 					m1.start(primaryStage);
+				}		catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			}
-		}
-				);
-
-
-
-
+  				
+			} 
+		
+        	 }
+			);
 
 		Scene scene = new Scene(grid, 500,500);
 		scene.getStylesheets().add("Layout.css");
