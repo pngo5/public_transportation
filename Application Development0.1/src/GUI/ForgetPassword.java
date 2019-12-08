@@ -49,7 +49,9 @@ public void start(Stage primaryStage) throws Exception {
 	    grid.setAlignment(Pos.CENTER);
 	    grid.setVgap(10);
 	    grid.setHgap(10);
-	    
+	    /***
+	     * xasdsadas
+	     */
 	    
 	    Label headerLabel = new Label("Forgot Password Validation Form");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));

@@ -208,7 +208,7 @@ public class RegistrationUI extends Application {
         Button backToMain = new Button();
         	//Adding back to Main Menu button
         	backToMain = new Button("Back To Main Menu");
-      		gridPane.add(backToMain, 2, 12);
+      		gridPane.add(backToMain, 1, 12);
       		backToMain.setOnAction(e -> {
       			Login mm = new Login();
       			try {
@@ -278,7 +278,7 @@ public class RegistrationUI extends Application {
         	}
         });
         
-        gridPane.add(registerButton, 1, 12);
+        gridPane.add(registerButton, 0, 12);
         
         // Create a scene with registration form 
  		Scene scene = new Scene(gridPane, 700, 600);
