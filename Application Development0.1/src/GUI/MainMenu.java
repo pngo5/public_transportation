@@ -68,7 +68,7 @@ public class MainMenu extends Application {
         	try {
 				rg.start(primaryStage);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch blockdfdsf
+				// TODO Auto-generated catch blocks
 				e1.printStackTrace();
 			}
         });
