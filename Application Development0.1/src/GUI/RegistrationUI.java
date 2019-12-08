@@ -205,21 +205,35 @@ public class RegistrationUI extends Application {
         securityATextField.setPromptText("Security Answer");
         gridPane.add(securityATextField, 1, 11);
         
-        Button registerButton = new Button("Sign Up");
+        Button backToMain = new Button();
+        	//Adding back to Main Menu button
+        	backToMain = new Button("Back To Main Menu");
+      		gridPane.add(backToMain, 2, 12);
+      		backToMain.setOnAction(e -> {
+      			Login mm = new Login();
+      			try {
+      				mm.start(window);
+      			} catch (Exception e1) {
+      				// TODO Auto-generated catch block
+      				e1.printStackTrace();
+      			}
+      		});
         
+        Button registerButton = new Button("Sign Up");
         
         /**
 		 * This will create a user object and gather all the inputed user Data to the database;
 		 */
-		user = new User(usernameText.getText(), passwordText.getText(), firstNameText.getText(), lastNameText.getText(), 
-				addressText.getText(), zipText.getText(), stateBox.getText(), emailText.getText(), ssnTextField.getText(),
-				securityQChoiceBox.getSelectionModel().getSelectedItem(), securityATextField.getText());
 		
 		// Created this object to register user and then registered them
 		RegisterNewUser r = new RegisterNewUser();
 		RegistrationException re = new RegistrationException();
 		
         registerButton.setOnAction(e -> {
+        	
+        	user = new User(usernameText.getText(), passwordText.getText(), firstNameText.getText(), lastNameText.getText(), 
+    				addressText.getText(), zipText.getText(), stateBox.getText(), emailText.getText(), ssnTextField.getText(),
+    				securityQChoiceBox.getSelectionModel().getSelectedItem(), securityATextField.getText());
 
         	if(firstNameText.getText().isEmpty() || lastNameText.getText().isEmpty() ||
         			addressText.getText().isEmpty() ||  zipText.getText().isEmpty() ||
@@ -228,12 +242,22 @@ public class RegistrationUI extends Application {
         			securityATextField.getText().isEmpty()) {
         		AlertBox.display("Finish the registration", "You are missing some inputs.");
         		
+        	}else if(re.isZip(user) == false){
+        		AlertBox.display("Invalid ZIP", "Invalid Zip Code");
+        		System.out.print(user.getZip());
+        	}else if(re.emailValid(user) == false){
+        		AlertBox.display("Invalid Email Input", "Make the email contains @ and .com " + user.getEmail());
         	}else if(re.lengthUsernameCheck(user) == false){
         		AlertBox.display("Incorrect Username Input","Make the length between 4 and 15 characters long");
-        		
-        	}else {
-        		
-        		
+        	}else if(re.hasSpace(user) == true) {
+        		AlertBox.display("Invalid Password", "Password shouldn't contain a space");
+        	}else if(re.hasSpecialCharacter(user) == false) {
+        		AlertBox.display("Invalid Password", "Password should contain a special character");
+        	}else if(re.hasUpperCase(user) == false) {
+        		AlertBox.display("Invalid Password", "Password should contain a an uppercase letter");
+        	}else if(re.hasCorrectSnn(user) == false) {
+        		AlertBox.display("Invalid SSN", "Format of SSN XXX-XX-XXXX");
+        	}else {	
         		try {
 					r.addUserToDataBase(user);
 				} catch (Exception e2) {
