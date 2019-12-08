@@ -249,6 +249,7 @@ public class RegistrationUI extends Application {
         		AlertBox.display("Invalid Email Input", "Make the email contains @ and .com " + user.getEmail());
         	}else if(re.lengthUsernameCheck(user) == false){
         		AlertBox.display("Incorrect Username Input","Make the length between 4 and 15 characters long");
+
         	}else if(re.hasSpace(user) == true) {
         		AlertBox.display("Invalid Password", "Password shouldn't contain a space");
         	}else if(re.hasSpecialCharacter(user) == false) {
