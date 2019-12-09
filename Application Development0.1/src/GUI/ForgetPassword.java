@@ -98,7 +98,6 @@ public void start(Stage primaryStage) throws Exception {
         loginButton.setOnAction(e -> {
 			Login m1 = new Login();
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
 				Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 				PreparedStatement stmta = con.prepareStatement("SELECT * FROM users WHERE BINARY user_id=? AND question=? AND answer=?");
 				stmta.setString(1, testUsername.getText());
@@ -119,7 +118,20 @@ public void start(Stage primaryStage) throws Exception {
 			}
 		});
         
-     
+        Button backToMain = new Button();
+        //Adding back to Main Menu button
+        backToMain.setAlignment(Pos.CENTER);
+        backToMain = new Button("Back");
+          grid.add(backToMain,1,7 );
+          backToMain.setOnAction(e -> {
+              Login mm = new Login();
+              try {
+                  mm.start(window);
+              } catch (Exception e1) {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+              }
+          });
         
   
         Scene scene = new Scene(grid, 500,500);

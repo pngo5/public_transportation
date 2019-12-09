@@ -136,15 +136,34 @@ public class MainApplication extends Application {
 		 title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		 
 		
-		logOut = new Button("Logout");
-		logOut.setMinWidth(105);
-		backToMainMenu = new Button("Main Menu");
-		backToMainMenu.setMinWidth(105);
-		
-		v.getChildren().addAll(title, logOut,backToMainMenu);
-		
-		
-		return v;
+		 logOut = new Button("Logout");
+	        logOut.setMinWidth(105);
+	        logOut.setOnAction(e -> {
+	              Login mm = new Login();
+	              try {
+	                  mm.start(window);
+	              } catch (Exception e1) {
+	                  // TODO Auto-generated catch block
+	                  e1.printStackTrace();
+	              }
+	          });
+
+	        backToMainMenu = new Button("Main Menu");
+	        backToMainMenu.setMinWidth(105);
+	        backToMainMenu.setOnAction(e -> {
+	              Login mm = new Login();
+	              try {
+	                  mm.start(window);
+	              } catch (Exception e1) {
+	                  // TODO Auto-generated catch block
+	                  e1.printStackTrace();
+	              }
+	          });
+
+	        v.getChildren().addAll(title, logOut,backToMainMenu);
+
+
+	        return v;
 		
 	}
 	/**

@@ -122,7 +122,6 @@ public class Login extends Application {
         	else {
         		try {
         			MainApplication ma = new MainApplication();
-        			Class.forName("com.mysql.jdbc.Driver");
 					Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 					PreparedStatement stmta = con.prepareStatement("SELECT * FROM users WHERE BINARY user_id=? AND BINARY password=?");
 					stmta.setString(1, nameInput.getText());
