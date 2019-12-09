@@ -10,8 +10,7 @@ public class BusSchedule {
 	private int passengerCount;
 	
 	
-	public BusSchedule(int busID, String departCity, String arrivalCity, String departTime, String arrivalTime,
-			int passengerCount) {
+	public BusSchedule(int busID, String departCity, String arrivalCity, String arrivalTime,String departTime, int passengerCount) {
 		super();
 		this.busID = busID;
 		this.departCity = departCity;
