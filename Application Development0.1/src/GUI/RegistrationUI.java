@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -293,6 +294,10 @@ public class RegistrationUI extends Application {
         		}
         	}
         });
+        
+        HBox hbox = new HBox();
+        
+        
         
         gridPane.add(registerButton, 1, 12);
         

@@ -1,6 +1,6 @@
 package BusinessLogic;
 
-import Objects.Ticket;
+import Objects.BusSchedule;
 import javafx.collections.ObservableList;
 
 /**
@@ -17,13 +17,13 @@ public class BookTicket implements BookingTicket {
 	}
 
 	@Override
-	public ObservableList<Ticket> addBusTicket() throws Exception {
+	public ObservableList<BusSchedule> addBusTicket() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ObservableList<Ticket> deleteBusTicket() throws Exception {
+	public ObservableList<BusSchedule> deleteBusTicket() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

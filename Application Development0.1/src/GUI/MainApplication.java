@@ -2,6 +2,7 @@ package GUI;
 
 import java.sql.Date;
 
+import Objects.BusSchedule;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +41,7 @@ public class MainApplication extends Application {
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
 	Button backToMainMenu, logOut, removeBooking, addBooking;
-	TableColumn<BusSystem, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
+	TableColumn<BusSchedule, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
 	TableView table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
@@ -214,11 +215,11 @@ public class MainApplication extends Application {
 	}
 	
 
-	public ObservableList<BusSystem> getBusSystem(){
+	public ObservableList<BusSchedule> getBusSystem(){
 
-		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
-		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40));
-		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40));
+		ObservableList<BusSchedule> BusSystem1 = FXCollections.observableArrayList();
+		BusSystem1.add(new BusSchedule(2314214, "1 AM", "1 PM","Atl", "Dallas", 40));
+		BusSystem1.add(new BusSchedule(2314214,"1 Am","2 AM", "Dallas", "Atl",  40));
 
 		return BusSystem1;
 

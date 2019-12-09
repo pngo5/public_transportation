@@ -97,6 +97,10 @@ public void start(Stage primaryStage) throws Exception {
         grid.add(loginButton,1,6); 
         loginButton.setOnAction(e -> {
 			Login m1 = new Login();
+			
+			//TODO use this code to input into the table list
+			
+			
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
