@@ -1,6 +1,8 @@
 package GUI;
 
+
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -46,7 +48,7 @@ public class MainApplication extends Application {
 	Stage window;
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
-	Button backToMainMenu, logOut, removeBooking, addBooking;
+	Button backToMainMenu, logOut, removeBooking, addBooking, adminUpdateBusSystem, adminRemoveBusSystem;
 	TableColumn<BusSchedule, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
 	TableView table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
@@ -69,8 +71,12 @@ public class MainApplication extends Application {
 		//Creating the Tables
 		GridPane grid = createGridPane();
 		
+		//TODO Make an if statement to show user inputs or admin inputs.
+		
+		
+		
 		//Creating the main menu button, logout button, and add table button
-		VBox inputs = addInputs();
+		VBox inputs = addAdminInputs();
 		
 		border.setTop(topMenu);
 		border.setCenter(grid);
@@ -91,7 +97,7 @@ public class MainApplication extends Application {
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");			
 		ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
 		while(rs.next()) {
-BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
+       BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
 					rs.getString(4), rs.getString(5), rs.getInt(6)));
 		}
 		table.setItems(BusSystem1);		
@@ -150,7 +156,7 @@ BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3)
 	}
 	
 	/**
-	 * Menu for Main Menu, Logout, and etc.
+	 * Menu for Main Menu, Logout, and etc for User.
 	 * @return
 	 */
 	public VBox addInputs() {
@@ -318,7 +324,7 @@ BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3)
         removeBooking.setOnAction(e -> {
             refreshTable();
             try {
-              
+             
             	
             	
             	
@@ -345,10 +351,79 @@ BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3)
 
 	}
 	
+	/**
+	 * This will be the admin functions
+	 * 
+	 */
+	public VBox addAdminInputs() {
+		VBox v = new VBox();
+		v.setPadding(new Insets(10));
+	    v.setSpacing(8);
+	    
+		 Text title = new Text("Controllers");
+		 title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		 
+		 adminRemoveBusSystem = new Button("Remove Bus Schedule");
+		 adminRemoveBusSystem.setMinWidth(105);
+		 
+		
+		 adminUpdateBusSystem = new Button("Update Bus Schedule");
+		 adminUpdateBusSystem.setMinWidth(105);
+		 adminUpdateBusSystem.setOnAction(e ->{
+			 AddingBus ab = new AddingBus();
+			 try {
+				ab.start(window);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			 
+		 });
+		 
+		 logOut = new Button("Logout");
+	        logOut.setMinWidth(105);
+	        logOut.setOnAction(e -> {
+	              Login mm = new Login();
+	              try {
+	                  mm.start(window);
+	              } catch (Exception e1) {
+	                  // TODO Auto-generated catch block
+	                  e1.printStackTrace();
+	              }
+	          });
+
+	        backToMainMenu = new Button("Main Menu");
+	        backToMainMenu.setMinWidth(105);
+	        backToMainMenu.setOnAction(e -> {
+	              Login mm = new Login();
+	              try {
+	                  mm.start(window);
+	              } catch (Exception e1) {
+	                  // TODO Auto-generated catch block
+	                  e1.printStackTrace();
+	              }
+	          });
+
+	        v.getChildren().addAll(title, logOut,backToMainMenu,adminUpdateBusSystem, adminRemoveBusSystem);
+
+
+	        return v;
+		
+	}
 	
-	
-	
-	
+	/**
+	 * 
+	 */
+	 /*public void deleteButtonClicked() {
+	    	ObservableList<BusSchedule> productSelected, allProducts;
+	    	allProducts = table.getItems();
+	    	productSelected = table.getSelectionModel().getSelectedItems();
+	    	
+	    	BusSchedule s = new BusSchedule(productSelected);
+	    	
+	    	productSelected.forEach(allProducts::remove);
+	    	productSelected.forEach(allProducts::Mysql.adminDeleteBus(BusSchedule s));
+	   }
 	
 	/**
 	 * Start the main application
