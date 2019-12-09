@@ -1,6 +1,7 @@
 package GUI;
 
 import java.sql.Date;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,12 +16,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -35,158 +38,114 @@ public class MainApplication extends Application {
 	Stage window;
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
-	Button backToMainMenu, logOut;
+	Button backToMainMenu, logOut, removeBooking, addBooking;
 	TableColumn<BusSystem, String> busNumber, startTime, endTime, startLocation, endLocation, ticketPrice;
-	TableView table;
+	TableView table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
+    TextField busIDInput;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.setTitle("Main Application (User)");
-		window.getIcons().add(new Image("icon.png"));
+		//window.getIcons().add(new ("icon.png"));
 
-		//Create GridPane
-		GridPane grid = createGrid();
-
-		Scene scene = new Scene(grid, 1000, 650);
-		scene.getStylesheets().add("Layout.css");
+		//Create BorderPane
+		BorderPane border = new BorderPane();
+		
+		//Creating HBox
+		HBox topMenu = addHBox();
+		
+		//Creating the Tables
+		GridPane grid = createGridPane();
+		
+		//Creating the main menu button, logout button, and add table button
+		VBox inputs = addInputs();
+		
+		border.setTop(topMenu);
+		border.setCenter(grid);
+		border.setRight(inputs);
+		
+		Scene scene = new Scene(border, 1000, 650);
+		//scene.getStylesheets().add("Layout.css");
 
 		window.setScene(scene);
 
 		window.show();
 
 	}
-
-	public GridPane createGrid() {
-
-		// Creating GridPane to easily put objects into their locations
-		GridPane fromToGrid = new GridPane();
-		fromToGrid.setAlignment(Pos.TOP_LEFT);
-
-		//Top left GridPane this is where the logout button and the main button will be.
-		GridPane topRightGrid = new GridPane();
-		topRightGrid.setAlignment(Pos.TOP_RIGHT);
-
-		//The main gridpane where everything is added together
-		GridPane userMainApplicationGrid = new GridPane();
-		userMainApplicationGrid.setAlignment(Pos.CENTER);
-
-		/**
-		 * Initializing Buttons and setting location
-		 */
-
-		//Creating From City Label
-		fromCityLabel = new Label("From");
-		fromToGrid.add(fromCityLabel, 0, 0);
-
-		//Creating From City Text Field
-		fromCityText = new TextField();
-		fromCityText.setPrefHeight(30);
-		fromCityText.setPrefWidth(100);
-		fromToGrid.add(fromCityText, 0, 1);
-
-		//Creating To City Label
-		toCityLabel = new Label("To");
-		fromToGrid.add(toCityLabel, 1, 0);
-
-		//Creating To City Text
-		toCityText = new TextField();
-		toCityText.setPrefHeight(30);
-		toCityText.setPrefWidth(100);
-		fromToGrid.add(toCityText, 1, 1);
-
-		//Adding back to Main Menu button
-		backToMainMenu = new Button("Main Menu");
-		topRightGrid.add(backToMainMenu, 0, 0);
-		backToMainMenu.setOnAction(e -> {
-			Login mm = new Login();
-			try {
-				mm.start(window);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-
-		//Log Out Button
-		logOut = new Button("Log Out");
-		topRightGrid.add(logOut, 0, 1);
-		logOut.setOnAction(e -> {
-			Login mm = new Login();
-			try {
-				mm.start(window);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
-
-		//Creating a reserve a ticket label
-		Label reserveTicketLabel = new Label("Book a ticket here!");
-		reserveTicketLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-		userMainApplicationGrid.add(reserveTicketLabel, 0, 33, 2, 1);
-		GridPane.setHalignment(reserveTicketLabel, HPos.CENTER);
-		GridPane.setMargin(reserveTicketLabel, new Insets(20, 0, 20, 0));
-
-		// Creating "Your Reservations label
-		Label userReserveTicketLabel = new Label("Your Bookings.");
-		userReserveTicketLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-		userMainApplicationGrid.add(userReserveTicketLabel, 4, 33, 2, 1);
-		GridPane.setHalignment(userReserveTicketLabel, HPos.CENTER);
-		GridPane.setMargin(userReserveTicketLabel, new Insets(20, 0, 20, 0));
-
-		userMainApplicationGrid.setVgap(5);
-		userMainApplicationGrid.setHgap(5);
-
-		VBox vBox = createTable();
-
-		VBox vBox2 = createTable();
-
-		userMainApplicationGrid.add(vBox, 0, 34);
-		userMainApplicationGrid.add(vBox2, 5, 34);
-		userMainApplicationGrid.add(fromToGrid, 0, 0);
-		userMainApplicationGrid.add(topRightGrid, 5, 0);
-
-		return userMainApplicationGrid;
-
+	
+	public GridPane createGridPane() {
+		
+		
+		GridPane grid = new GridPane();
+		
+		VBox busScheduleTable = createTable();
+		
+		VBox userBookings = createUserBookingTable();
+		
+		
+		grid.add(busScheduleTable, 1, 1);
+		grid.add(userBookings, 2, 1);
+		
+		grid.setHgap(50);
+		grid.setVgap(30);
+		
+		return grid;
+		
 	}
 
-	/**
-	 * This method should be in the business logic
-	 * 
-	 * @return
-	 */
+	public HBox addHBox() {
+	    HBox hbox = new HBox();
+	    hbox.setPadding(new Insets(15, 12, 15, 12));
+	    hbox.setSpacing(10);
+	    hbox.setStyle("-fx-background-color: #336699;");
 
-	public ObservableList<BusSystem> getBusSystem(){
+	    ChoiceBox<String> from = new ChoiceBox<>();
+	    from.getItems().addAll("ATL","DAL","NY");
+	    from.setPrefSize(100, 20);
 
-		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
-		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40.40));
-		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40.40));
+	    ChoiceBox<String> to = new ChoiceBox<>();
+	    to.getItems().addAll("ATL","DAL","NY");
+	    to.setPrefSize(100, 20);
+	    
+	    from.setPrefSize(100, 20);
+	    to.setPrefSize(100, 20);
+	    
+	    Button searchButton = new Button("Search");
+	 
+	    
+	    hbox.getChildren().addAll(from, to, searchButton);
 
-		return BusSystem1;
-
-	}
-	/**
-	 * Buttons and their functions
-	 */
-
-	public void addButtonClicked() {
-		ObservableList<BusSystem> productSelected, allProducts;
-		allProducts = this.table.getItems();
-		productSelected = this.table.getSelectionModel().getSelectedItems();
-	}
-
-	public void deleteButtonClicked() {
-		ObservableList<BusSystem> productSelected, allProducts;
-		allProducts = table.getItems();
-		productSelected = table.getSelectionModel().getSelectedItems();
-
-		productSelected.forEach(allProducts::remove);
+	    return hbox;
 	}
 	
+	/**
+	 * Menu for Main Menu, Logout, and etc.
+	 * @return
+	 */
+	public VBox addInputs() {
+		VBox v = new VBox();
+		v.setPadding(new Insets(10));
+	    v.setSpacing(8);
+	    
+		 Text title = new Text("Controllers");
+		 title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		 
+		
+		logOut = new Button("Logout");
+		
+		
+		backToMainMenu = new Button("Main Menu");
+		
+		v.getChildren().addAll(title, logOut,backToMainMenu);
+		
+		
+		return v;
+		
+	}
 	/**
 	 * Creates the view tables
 	 * 
@@ -199,27 +158,27 @@ public class MainApplication extends Application {
 		 * Creating view column for User and matching it to their respective instances.
 		 */
 		busNumber = new TableColumn<>("Bus ID");
-		busNumber.setMinWidth(60);
+		busNumber.setMinWidth(45);
 		busNumber.setCellValueFactory(new PropertyValueFactory<>("busNumber"));
 
 		startTime = new TableColumn<>("Start Time");
-		startTime.setMinWidth(60);
+		startTime.setMinWidth(45);
 		startTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 
 		endTime = new TableColumn<>("End Time");
-		endTime.setMinWidth(60);
+		endTime.setMinWidth(45);
 		endTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
 
 		startLocation = new TableColumn<>("Start Location");
-		startLocation.setMinWidth(60);
+		startLocation.setMinWidth(45);
 		startLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
 
 		endLocation = new TableColumn<>("End Location");
-		endLocation.setMinWidth(60);
+		endLocation.setMinWidth(45);
 		endLocation.setCellValueFactory(new PropertyValueFactory<>("endLocation"));
 
 		ticketPrice = new TableColumn<>("Ticket Price");
-		ticketPrice.setMinWidth(60);
+		ticketPrice.setMinWidth(45);
 		ticketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
 
 		//Creating table
@@ -228,16 +187,43 @@ public class MainApplication extends Application {
 		//Populating table system
 		table.setItems(getBusSystem());
 		table.getColumns().addAll(busNumber, startTime, endTime, startLocation, endLocation, ticketPrice);
+		
+		//Search the Bus ID Input
+        busIDInput = new TextField();
+        busIDInput.setPromptText("Bus ID");
+        busIDInput.setMinWidth(100);
+       
+        //Button
+        Button addButton = new Button("Reserve");
+       
+        
+        //Create
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+        hBox.setSpacing(10);
+        hBox.setStyle("-fx-background-color: #336699;");
+        hBox.getChildren().addAll(busIDInput, addButton);
 
 		//Adding the table to a VbOX
 		VBox vBox = new VBox();
-		vBox.getChildren().addAll(table);
+		vBox.getChildren().addAll(table,hBox);
 
 		return vBox;
 
 	}
+	
 
-	public VBox createScheduleTable() {
+	public ObservableList<BusSystem> getBusSystem(){
+
+		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
+		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40.40));
+		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40.40));
+
+		return BusSystem1;
+
+	}
+
+	public VBox createUserBookingTable() {
 
 		/**
 		 * 
@@ -245,41 +231,41 @@ public class MainApplication extends Application {
 		 * 
 		 */
 		busNumber = new TableColumn<>("Bus ID");
-        busNumber.setMinWidth(60);
+        busNumber.setMinWidth(100);
         busNumber.setCellValueFactory(new PropertyValueFactory<>("busNumber"));
 
 		startTime = new TableColumn<>("Start Time");
-		startTime.setMinWidth(60);
+		startTime.setMinWidth(100);
 		startTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 
 		endTime = new TableColumn<>("End Time");
-		endTime.setMinWidth(60);
+		endTime.setMinWidth(100);
 		endTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-
-		startLocation = new TableColumn<>("Start Location");
-		startLocation.setMinWidth(60);
-		startLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
-
-		endLocation = new TableColumn<>("End Location");
-		endLocation.setMinWidth(60);
-		endLocation.setCellValueFactory(new PropertyValueFactory<>("endLocation"));
-
-		ticketPrice = new TableColumn<>("Ticket Price");
-		ticketPrice.setMinWidth(60);
-		ticketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
 
 		// Creating table
 
-		table = new TableView<>();
+		userBookingTable = new TableView<>();
 
 		// Populating table system
 
-		table.setItems(getBusSystem());
-		table.getColumns().addAll(busNumber, startTime, endTime, startLocation, endLocation, ticketPrice);
+		userBookingTable.setItems(getBusSystem());
+		userBookingTable.getColumns().addAll(busNumber, startTime, endTime);
+		
+       
+        //Button
+        removeBooking = new Button("Remove");
+       
+        
+        //Create
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+        hBox.setSpacing(10);
+        hBox.setStyle("-fx-background-color: #336699;");
+        hBox.getChildren().addAll(removeBooking);
 
 		// Adding the table to a VbOX
 		VBox vBox = new VBox();
-		vBox.getChildren().addAll(table);
+		vBox.getChildren().addAll(userBookingTable, hBox);
 
 		return vBox;
 
