@@ -2,7 +2,7 @@ package Objects;
 
 public class BusSchedule {
 	
-	private int busID;
+	private String busID;
 	private String departCity;
 	private String arrivalCity;
 	private String departTime;
@@ -10,7 +10,9 @@ public class BusSchedule {
 	private int passengerCount;
 	
 	
-	public BusSchedule(int busID, String departCity, String arrivalCity, String arrivalTime,String departTime, int passengerCount) {
+	
+	public BusSchedule(String busID, String departCity, String arrivalCity, String departTime, String arrivalTime,
+			int passengerCount) {
 		super();
 		this.busID = busID;
 		this.departCity = departCity;
@@ -19,11 +21,10 @@ public class BusSchedule {
 		this.arrivalTime = arrivalTime;
 		this.passengerCount = passengerCount;
 	}
-	
-	public int getBusID() {
+	public String getBusID() {
 		return busID;
 	}
-	public void setBusID(int busID) {
+	public void setBusID(String busID) {
 		this.busID = busID;
 	}
 	public String getDepartCity() {
@@ -50,15 +51,13 @@ public class BusSchedule {
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-
-	public  int getPassengerCount() {
-
+	public int getPassengerCount() {
 		return passengerCount;
 	}
 	public void setPassengerCount(int passengerCount) {
 		this.passengerCount = passengerCount;
 	}
 	
-	
+
 
 }

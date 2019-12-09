@@ -1,5 +1,6 @@
 package GUI;
 
+import Database.Mysql;
 import Exceptions.RegistrationException;
 import BusinessLogic.RegisterNewUser;
 import BusinessLogic.Schedules;
@@ -181,8 +182,8 @@ public class AddingBus extends Application {
    		Button Adding = new Button("ADD");
    		gridPane.add( Adding, 1, 12);
            Adding.setOnAction(e -> {
-           	int BusIDINT=Integer.parseInt(busIDText.getText());
-           	int passengarCountINT=Integer.parseInt(passengarCountText.getText());
+           	String BusIDINT=busIDText.getText();
+           	int passengarCountINT= Integer.parseInt(passengarCountText.getText());
            	BusSchedule= new BusSchedule(BusIDINT,
            			
            			
@@ -203,8 +204,9 @@ public class AddingBus extends Application {
            	}
            	else
            	{
+           		Mysql ms = new Mysql();
            		try {
-   					r.addUserToDataBase(BusSchedule);
+   					ms.adminUpdateBus(BusSchedule);;
    				} catch (Exception e2) {
    					// TODO Auto-generated catch block
    					e2.printStackTrace();

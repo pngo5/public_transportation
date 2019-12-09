@@ -47,7 +47,7 @@ public class Mysql {
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
 		
 			while(rs.next()) {
-				data.add(new BusSchedule(rs.getInt(1), rs.getString(2), rs.getString(3),
+				data.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
 						rs.getString(4), rs.getString(5), rs.getInt(6)));
 			}
 			return data;
@@ -87,7 +87,7 @@ public class Mysql {
 		return null;
 	}
 	public static void post(BusSchedule bs) throws Exception{
-		final int busID=bs.getBusID();
+		final String busID= bs.getBusID();
 		final String departCity=bs.getDepartCity();
 		final String arrivalCity=bs.getArrivalCity();
 		final String departTime=bs.getDepartCity();
@@ -105,7 +105,35 @@ public class Mysql {
 		}
 	}
 		
+	public static void adminUpdateBus(BusSchedule s) {
+	/**
+	 * private int busID;
+	private String departCity;
+	private String arrivalCity;
+	private String departTime;
+	private String arrivalTime;
+	private int passengerCount;
+	 */
+		final String busID = s.getBusID();
+		final String departCity = s.getDepartCity();
+		final String arrivalCity = s.getArrivalCity();
+		final String departTime = s.getDepartTime();
+		final String arrivalTime = s.getArrivalTime();
+		final int passengerCount = s.getPassengerCount();
 		
+		try {
+		Connection conn = getConnection();
+		PreparedStatement posted = conn.prepareStatement("INSERT INTO schedule  (bus_id, depart_city, arrival_city, depart_time ,"
+				+ " arrival_time, passenger_count) VALUES('"+busID+"','"+departCity+"','"+arrivalCity+"', '"+departTime+"' ,"
+						+ " '"+arrivalTime+"' , '"+passengerCount+"')");
+		posted.executeUpdate();
+		}catch(Exception e) {System.out.println(e);}
+		finally {
+			System.out.println("Insert Completed12");
+			System.out.println(s.getBusID());
+		}
+		
+	}
 		
 	
 	

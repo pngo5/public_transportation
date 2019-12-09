@@ -91,7 +91,7 @@ public class MainApplication extends Application {
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");			
 		ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
 		while(rs.next()) {
-BusSystem1.add(new BusSchedule(rs.getInt(1), rs.getString(2), rs.getString(3),
+BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
 					rs.getString(4), rs.getString(5), rs.getInt(6)));
 		}
 		table.setItems(BusSystem1);		
