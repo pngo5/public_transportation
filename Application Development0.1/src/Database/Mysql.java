@@ -42,52 +42,16 @@ public class Mysql {
 	public static ObservableList<BusSchedule> getBusSchedule() {
 	
 		try {
-			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
-			
-			
-			data = FXCollections.observableArrayList();
-			/*//This is for getting the bus count
-			PreparedStatement busCount = con.prepareStatement("SELECT COUNT(bus_id) FROM schedule");
-			ResultSet bCount = busCount.executeQuery();
-			
-			//int count = bCount.getInt(1);
-			
-			//This is for getting the bus schedule
-			//PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE BINARY bus_id AND "
-					+ "depart_city AND arrival_city AND arrival_city AND arrival_city");
-			ResultSet rsa = stmta.executeQuery();
-			*/
-			
+			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");		
+			data = FXCollections.observableArrayList();			
 			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
-			
-			
-				
+		
 			while(rs.next()) {
 				data.add(new BusSchedule(rs.getInt(1), rs.getString(2), rs.getString(3),
 						rs.getString(4), rs.getString(5), rs.getInt(6)));
 			}
-			
-			
-			
 			return data;
-			/*if(rs .next()) { 
-				
-           
-			}
-			else 
-				AlertBox.display("ERROR!", "Incorrect Information!");   
-			con.close();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-			
-			
-			
-			
-			
-			
-			
+	
 			
 	}catch(Exception e) {
 		System.out.print(e);
@@ -122,6 +86,27 @@ public class Mysql {
 		}catch(Exception e) {System.out.println(e);}
 		return null;
 	}
+	public static void post(BusSchedule bs) throws Exception{
+		final int busID=bs.getBusID();
+		final String departCity=bs.getDepartCity();
+		final String arrivalCity=bs.getArrivalCity();
+		final String departTime=bs.getDepartCity();
+		final String arrivalTime=bs.getArrivalTime();
+		final int passengerCount=bs.getPassengerCount();
+		
+		try {
+		Connection conn = getConnection();
+		PreparedStatement posted = conn.prepareStatement("INSERT INTO schedule  (bus_id, depart_city, arrival_city, depart_time, arrival_time, passenger_count) VALUES('"+busID+"','"+departCity+"','"+arrivalCity+"', '"+departTime+"' , '"+arrivalTime+"' , '"+passengerCount+"')");
+		posted.executeUpdate();
+		}catch(Exception e) {System.out.println(e);}
+		finally {
+			System.out.println("Insert Completed12");
+			System.out.println(bs.getBusID());
+		}
+	}
+		
+		
+		
 	
 	
 	
@@ -175,6 +160,7 @@ public class Mysql {
 		
 		return null;
 	}
+	
 
 }
 

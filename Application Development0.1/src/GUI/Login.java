@@ -128,6 +128,7 @@ public class Login extends Application {
 					stmta.setString(2, passInput.getText());
 					ResultSet rsa = stmta.executeQuery();
 					if(rsa.next()) { 
+						
 						ma.start(window);
 					}
 					else
@@ -142,7 +143,7 @@ public class Login extends Application {
 					e1.printStackTrace();
 				}
   				
-			} 
+			}
 		
         	 }
 			);
