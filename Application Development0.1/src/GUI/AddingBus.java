@@ -185,16 +185,8 @@ public class AddingBus extends Application {
            	String BusIDINT=busIDText.getText();
            	int passengarCountINT= Integer.parseInt(passengarCountText.getText());
            	BusSchedule= new BusSchedule(BusIDINT,
-           			
-           			
-           			
            			departCityText.getText(),arrivalCityText.getText(), 
            			arrivalTimeTextText.getText(), departTimeText.getText()
-           			
-           			
-           			
-           			/******SQL PROBLEM
-           			********/
            			,passengarCountINT);
 
            	if(busIDText.getText().isEmpty() || departCityText.getText().isEmpty() ||
