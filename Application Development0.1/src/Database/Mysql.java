@@ -6,6 +6,12 @@ import java.sql.DriverManager;
 
 import Objects.BusSchedule;
 import Objects.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumnBase;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,12 +19,20 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import GUI.AlertBox;
+
 public class Mysql {
+	
+	static ObservableList<BusSchedule> data;
+	private TableColumn busNumber;
+	private TableColumn startTime;
+	private TableColumn endTime;
+	private TableColumn startLocation;
+	private TableColumn endLocation;
+	private TableColumn passengerCount;
 	public static void main(String[] args) throws Exception {
 		//getConnection();
 		 //get();
-		getBusSchedule();
+	
 	}
 	
 	/**
@@ -26,29 +40,38 @@ public class Mysql {
 	 *
 	 * @return
 	 */
-	public static void getBusSchedule() {
+	public static ObservableList<BusSchedule> getBusSchedule() {
 	
 		try {
 			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 			
-			//This is for getting the bus count
+			
+			data = FXCollections.observableArrayList();
+			/*//This is for getting the bus count
 			PreparedStatement busCount = con.prepareStatement("SELECT COUNT(bus_id) FROM schedule");
 			ResultSet bCount = busCount.executeQuery();
 			
 			//int count = bCount.getInt(1);
 			
 			//This is for getting the bus schedule
-			PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE BINARY bus_id AND "
+			//PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE BINARY bus_id AND "
 					+ "depart_city AND arrival_city AND arrival_city AND arrival_city");
 			ResultSet rsa = stmta.executeQuery();
+			*/
+			
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
 			
 			
-			int b = rsa.getInt("bus_id ");
+				
+			while(rs.next()) {
+				data.add(new BusSchedule(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getInt(6)));
+			}
 			
-			System.out.print(b);
-
 			
-			if(rsa.next()) { 
+			
+			return data;
+			/*if(rs .next()) { 
 				
            
 			}
@@ -58,9 +81,23 @@ public class Mysql {
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
+			
+			
+			
+			
+			
+			
+			
+			
+	}catch(Exception e) {
+		System.out.print(e);
+	}
+		return null;
 	}
 	
+		
+
 	public static ArrayList<String> get() {
 		
 		try {

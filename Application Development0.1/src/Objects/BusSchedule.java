@@ -2,16 +2,16 @@ package Objects;
 
 public class BusSchedule {
 	
-	private long busID;
+	private int busID;
 	private String departCity;
 	private String arrivalCity;
 	private String departTime;
 	private String arrivalTime;
-	private long passengerCount;
+	private int passengerCount;
 	
 	
 	public BusSchedule(int busID, String departCity, String arrivalCity, String departTime, String arrivalTime,
-			long passengerCount) {
+			int passengerCount) {
 		super();
 		this.busID = busID;
 		this.departCity = departCity;
@@ -24,7 +24,7 @@ public class BusSchedule {
 	public long getBusID() {
 		return busID;
 	}
-	public void setBusID(long busID) {
+	public void setBusID(int busID) {
 		this.busID = busID;
 	}
 	public String getDepartCity() {
@@ -51,10 +51,10 @@ public class BusSchedule {
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	public  long getPassengerCount(long passengerCount) {
+	public  int getPassengerCount(int passengerCount) {
 		return passengerCount;
 	}
-	public void setPassengerCount(long passengerCount) {
+	public void setPassengerCount(int passengerCount) {
 		this.passengerCount = passengerCount;
 	}
 	

@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Database.Mysql;
 import Objects.BusSchedule;
+import application.Product;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -180,55 +182,50 @@ public class MainApplication extends Application {
 	 * @return
 	 */
 	public ObservableList<BusSchedule> getBusSystem(){
-		try {
-			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
-			PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE bus_id AND depart_city AND arrival_city "
-					+ "AND depart_time AND arrival_time AND passenger_count");		
-			ResultSet rsa = stmta.executeQuery();
-			table.getItems().clear();
-			while(rsa.next()) {
-			BusSystem1.add(new BusSchedule(rsa.getInt("bus_id"), rsa.getString("depart_time"), rsa.getString("arrival_time"),rsa.getString("depart_city"), rsa.getString("arrival_city"), 
-					rsa.getInt("passenger_count")));
-			table.setItems(BusSystem1);
-			}		
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return BusSystem1;
+		
+		ObservableList<BusSchedule> products = Mysql.getBusSchedule();
+		
+		
+		return products;
 
 	}
 	public VBox createTable() {
 
 		/**
 		 * Creating view column for User and matching it to their respective instances.
+		 * 
+		 * 	private int busID;
+	private String departCity;
+	private String arrivalCity;
+	private String departTime;
+	private String arrivalTime;
+	private int passengerCount;
 		 */
 		busNumber = new TableColumn<>("Bus ID");
 		busNumber.setMinWidth(45);
-		busNumber.setCellValueFactory(new PropertyValueFactory<>("busNumber"));
+		busNumber.setCellValueFactory(new PropertyValueFactory<>("busID"));
 
 		startTime = new TableColumn<>("Start Time");
 		startTime.setMinWidth(45);
-		startTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+		startTime.setCellValueFactory(new PropertyValueFactory<>("departCity"));
 
 		endTime = new TableColumn<>("End Time");
 		endTime.setMinWidth(45);
-		endTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+		endTime.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
 
 		startLocation = new TableColumn<>("Start Location");
 		startLocation.setMinWidth(45);
-		startLocation.setCellValueFactory(new PropertyValueFactory<>("startLocation"));
+		startLocation.setCellValueFactory(new PropertyValueFactory<>("departTime"));
 
 		endLocation = new TableColumn<>("End Location");
 		endLocation.setMinWidth(45);
-		endLocation.setCellValueFactory(new PropertyValueFactory<>("endLocation"));
+		endLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
 
 		passengerCount = new TableColumn<>("Ticket Price");
 		passengerCount.setMinWidth(45);
-		passengerCount.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
+		passengerCount.setCellValueFactory(new PropertyValueFactory<>("passengerCount"));
+		
+		
 
 		//Creating table
 		table = new TableView<>();
