@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -39,7 +40,7 @@ public class MainApplication extends Application {
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
 	Button backToMainMenu, logOut, removeBooking, addBooking;
-	TableColumn<BusSystem, String> busNumber, startTime, endTime, startLocation, endLocation, ticketPrice;
+	TableColumn<BusSystem, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
 	TableView table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
@@ -70,9 +71,9 @@ public class MainApplication extends Application {
 		
 		Scene scene = new Scene(border, 1000, 650);
 		//scene.getStylesheets().add("Layout.css");
-
+		scene.getStylesheets().add("Layout.css");
+		window.getIcons().add(new Image("icon.png"));
 		window.setScene(scene);
-
 		window.show();
 
 	}
@@ -136,9 +137,9 @@ public class MainApplication extends Application {
 		 
 		
 		logOut = new Button("Logout");
-		
-		
+		logOut.setMinWidth(105);
 		backToMainMenu = new Button("Main Menu");
+		backToMainMenu.setMinWidth(105);
 		
 		v.getChildren().addAll(title, logOut,backToMainMenu);
 		
@@ -177,16 +178,16 @@ public class MainApplication extends Application {
 		endLocation.setMinWidth(45);
 		endLocation.setCellValueFactory(new PropertyValueFactory<>("endLocation"));
 
-		ticketPrice = new TableColumn<>("Ticket Price");
-		ticketPrice.setMinWidth(45);
-		ticketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
+		passengerCount = new TableColumn<>("Ticket Price");
+		passengerCount.setMinWidth(45);
+		passengerCount.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
 
 		//Creating table
 		table = new TableView<>();
 
 		//Populating table system
 		table.setItems(getBusSystem());
-		table.getColumns().addAll(busNumber, startTime, endTime, startLocation, endLocation, ticketPrice);
+		table.getColumns().addAll(busNumber, startTime, endTime, startLocation, endLocation, passengerCount);
 		
 		//Search the Bus ID Input
         busIDInput = new TextField();
@@ -216,8 +217,8 @@ public class MainApplication extends Application {
 	public ObservableList<BusSystem> getBusSystem(){
 
 		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
-		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40.40));
-		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40.40));
+		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40));
+		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40));
 
 		return BusSystem1;
 

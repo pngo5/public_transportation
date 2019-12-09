@@ -12,9 +12,9 @@
 	-fx-background-color: 
 	linear-gradient(#000000,#add8e6),
 	radial-gradient(center 50% -40%, radius 200%,#36e2ee 45%,#64d9cd 50%);
-	 -fx-border-radius: 20;
-	 -fx-font-size: 17px;
-	-fx-background-radius:6,5;
+	 -fx-border-radius: 56;
+	 -fx-font-size: 13px;
+	-fx-background-radius:5,6;
 	-fx-background-insets:0,1;
 	-fx-effect: dropshadow(three-pass-box, rgb(0,0,0,0.4),5,0.0,0,1);
 	

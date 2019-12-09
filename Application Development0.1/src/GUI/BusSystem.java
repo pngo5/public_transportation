@@ -15,7 +15,7 @@ public class BusSystem {
 	private String endTime;
 	private String startLocation;
 	private String endLocation;
-	private double ticketPrice;
+	private int passengerCount;
 	
 	public long getBusNumber() {
 		return BusNumber;
@@ -67,13 +67,13 @@ public class BusSystem {
 	}
 
 
-	public double getTicketPrice() {
-		return ticketPrice;
+	public double getpassengerCount() {
+		return passengerCount;
 	}
 
 
-	public void setTicketPrice(double ticketPrice) {
-		this.ticketPrice = ticketPrice;
+	public void setpassengerCount(int passengerCount) {
+		this.passengerCount = passengerCount;
 	}
 	
 	public BusSystem() {
@@ -81,18 +81,18 @@ public class BusSystem {
 		startTime = " 1 AM";
 		startLocation = "Atl";
 		endLocation = "Washington D.C";
-		ticketPrice = 0;
+		passengerCount = 0;
 	}
 	
 	
 	public BusSystem(long BusNumber, String startTime,String endTime, 
-			String startLocation, String endLocation, double ticketPrice) {
+			String startLocation, String endLocation, int passengerCount) {
 		this.BusNumber = BusNumber;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
-		this.ticketPrice = ticketPrice;
+		this.passengerCount = passengerCount;
 	}
 	
 	
