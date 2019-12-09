@@ -21,7 +21,7 @@ public class BusSchedule {
 		this.passengerCount = passengerCount;
 	}
 	
-	public long getBusID() {
+	public int getBusID() {
 		return busID;
 	}
 	public void setBusID(int busID) {
@@ -51,7 +51,7 @@ public class BusSchedule {
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	public  int getPassengerCount(int passengerCount) {
+	public  int getPassengerCount() {
 		return passengerCount;
 	}
 	public void setPassengerCount(int passengerCount) {
