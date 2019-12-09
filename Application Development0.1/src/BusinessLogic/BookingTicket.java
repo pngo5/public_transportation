@@ -1,6 +1,6 @@
 package BusinessLogic;
 
-import Objects.Ticket;
+import Objects.BusSchedule;
 import javafx.collections.ObservableList;
 /**
  * this interface will inforce the booking of tickets
@@ -12,8 +12,8 @@ public interface BookingTicket {
 	
 	public void getTicketInfo();
 	
-	public ObservableList<Ticket> addBusTicket() throws Exception;
+	public ObservableList<BusSchedule> addBusTicket() throws Exception;
 	
-	public ObservableList<Ticket> deleteBusTicket() throws Exception;
+	public ObservableList<BusSchedule> deleteBusTicket() throws Exception;
 
 }

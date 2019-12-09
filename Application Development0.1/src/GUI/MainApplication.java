@@ -1,7 +1,13 @@
 package GUI;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import Objects.BusSchedule;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,12 +46,12 @@ public class MainApplication extends Application {
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
 	Button backToMainMenu, logOut, removeBooking, addBooking;
-	TableColumn<BusSystem, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
+	TableColumn<BusSchedule, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
 	TableView table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
     TextField busIDInput;
-
+   final ObservableList<BusSchedule> BusSystem1 = FXCollections.observableArrayList();
 	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -166,12 +172,35 @@ public class MainApplication extends Application {
 	        return v;
 		
 	}
+	
+
 	/**
 	 * Creates the view tables
 	 * 
 	 * @return
 	 */
-	
+	public ObservableList<BusSchedule> getBusSystem(){
+		try {
+			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+			PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE bus_id AND depart_city AND arrival_city "
+					+ "AND depart_time AND arrival_time AND passenger_count");		
+			ResultSet rsa = stmta.executeQuery();
+			table.getItems().clear();
+			while(rsa.next()) {
+			BusSystem1.add(new BusSchedule(rsa.getInt("bus_id"), rsa.getString("depart_time"), rsa.getString("arrival_time"),rsa.getString("depart_city"), rsa.getString("arrival_city"), 
+					rsa.getInt("passenger_count")));
+			table.setItems(BusSystem1);
+			}		
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return BusSystem1;
+
+	}
 	public VBox createTable() {
 
 		/**
@@ -233,15 +262,7 @@ public class MainApplication extends Application {
 	}
 	
 
-	public ObservableList<BusSystem> getBusSystem(){
 
-		ObservableList<BusSystem> BusSystem1 = FXCollections.observableArrayList();
-		BusSystem1.add(new BusSystem(2314214, "1 AM", "1 PM","Atl", "Dallas", 40));
-		BusSystem1.add(new BusSystem(2314214,"1 Am","2 AM", "Dallas", "Atl",  40));
-
-		return BusSystem1;
-
-	}
 
 	public VBox createUserBookingTable() {
 

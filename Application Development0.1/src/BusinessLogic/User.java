@@ -28,7 +28,7 @@ public class User {
 	private String ssn;
 	private String secQuestions;
 	private String secAnswers;
-	private short isAdmin;
+	private int isAdmin;
 	
 	//
 
@@ -183,7 +183,7 @@ public class User {
 
 
 
-	public short getIsAdmin() {
+	public int getIsAdmin() {
 		return isAdmin;
 	}
 

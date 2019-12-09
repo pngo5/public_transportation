@@ -4,7 +4,7 @@ package Database;
 import java.sql.*;
 import java.sql.DriverManager;
 
-
+import Objects.BusSchedule;
 import Objects.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +12,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import GUI.AlertBox;
 public class Mysql {
 	public static void main(String[] args) throws Exception {
-		getConnection();
-		 get();
+		//getConnection();
+		 //get();
+		getBusSchedule();
+	}
+	
+	/**
+	 * This method is to retrieve the bus object and input into the table view
+	 *
+	 * @return
+	 */
+	public static void getBusSchedule() {
+	
+		try {
+			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+			
+			//This is for getting the bus count
+			PreparedStatement busCount = con.prepareStatement("SELECT COUNT(bus_id) FROM schedule");
+			ResultSet bCount = busCount.executeQuery();
+			
+			//int count = bCount.getInt(1);
+			
+			//This is for getting the bus schedule
+			PreparedStatement stmta = con.prepareStatement("SELECT * FROM schedule WHERE BINARY bus_id AND "
+					+ "depart_city AND arrival_city AND arrival_city AND arrival_city");
+			ResultSet rsa = stmta.executeQuery();
+			
+			
+			int b = rsa.getInt("bus_id ");
+			
+			System.out.print(b);
+
+			
+			if(rsa.next()) { 
+				
+           
+			}
+			else 
+				AlertBox.display("ERROR!", "Incorrect Information!");   
+			con.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public static ArrayList<String> get() {
