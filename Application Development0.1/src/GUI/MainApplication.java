@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import Database.Mysql;
 import Objects.BusSchedule;
-import application.Product;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -221,8 +220,8 @@ public class MainApplication extends Application {
 		endLocation.setMinWidth(45);
 		endLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
 
-		passengerCount = new TableColumn<>("Ticket Price");
-		passengerCount.setMinWidth(45);
+		passengerCount = new TableColumn<>("Passenger count");
+		passengerCount.setMinWidth(30);
 		passengerCount.setCellValueFactory(new PropertyValueFactory<>("passengerCount"));
 		
 		
@@ -308,6 +307,12 @@ public class MainApplication extends Application {
 		return vBox;
 
 	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Start the main application
 	 * 

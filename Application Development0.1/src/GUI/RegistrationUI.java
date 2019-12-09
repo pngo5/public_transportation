@@ -207,6 +207,8 @@ public class RegistrationUI extends Application {
         		"What is the name of your first pet",
         		"What is the name of your School"); 
         securityQChoiceBox.setValue("What is the name of your first teacher");
+        securityQChoiceBox.setPrefWidth(230);
+        securityQChoiceBox.setMaxWidth(230);
         gridPane.add(securityQChoiceBox, 1, 10);
         
       
@@ -222,10 +224,11 @@ public class RegistrationUI extends Application {
         
         gridPane.add(securityATextField, 1, 11);
         
+        
+        
         Button backToMain = new Button();
         	//Adding back to Main Menu button
         	backToMain = new Button("Back");
-      		gridPane.add(backToMain, 0, 12);
       		backToMain.setOnAction(e -> {
       			Login mm = new Login();
       			try {
@@ -296,10 +299,13 @@ public class RegistrationUI extends Application {
         });
         
         HBox hbox = new HBox();
+        hbox.getChildren().addAll(registerButton, backToMain);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setPadding(new Insets(10, 10, 10, 10));
+        hbox.setSpacing(50);
         
         
-        
-        gridPane.add(registerButton, 1, 12);
+        gridPane.add(hbox, 1, 12);
         
         // Create a scene with registration form 
  		Scene scene = new Scene(gridPane, 500, 600);
@@ -308,9 +314,6 @@ public class RegistrationUI extends Application {
         window.setScene(scene);
         
         window.show();
-
-		
-		
 		
 	}
 	
