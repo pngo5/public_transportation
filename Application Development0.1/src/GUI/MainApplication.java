@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import Database.Mysql;
 import Objects.BusSchedule;
+import Objects.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

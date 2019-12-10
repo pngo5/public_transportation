@@ -191,6 +191,19 @@ public class Mysql {
 		}
 	}
 	
+
+	public static boolean checkMemberID(String 
+			userName) throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException {
+		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+		Statement stm = con.createStatement();
+		ResultSet rst = stm.executeQuery("SELECT * FROM users WHERE user_Id='"+userName+"'");
+		
+		return rst.next();
+	}
+	
+	
+	
+	
 	
 	
 	public static Connection getConnection() throws Exception  {

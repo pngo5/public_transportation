@@ -11,7 +11,7 @@ public class RegistrationException {
     * 
     */
 	public static boolean isZip(User u) {		
-		Pattern zipi = Pattern.compile("[^[0-9]{5}(?:-[0-9]{4})?$]");
+		Pattern zipi = Pattern.compile("[^\\d{5}(?:[-\\s]\\d{4})?$]");
 		Matcher zipu = zipi.matcher(u.getPassword());
 		return zipu.find();
 	}
