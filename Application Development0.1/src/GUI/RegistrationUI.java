@@ -290,7 +290,7 @@ RegistrationException re = new RegistrationException();
 						r.addUserToDataBase(user);
 						}
 					 catch (Exception e2) {
-						// TODO Auto-generated catch block
+						// TODO Auto-generated catch block11
 						e2.printStackTrace();
 					}
 					
