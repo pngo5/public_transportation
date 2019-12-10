@@ -12,7 +12,9 @@ import java.sql.SQLException;
 
 import Database.Mysql;
 import Objects.BusSchedule;
+
 import Objects.Tickets;
+
 import Objects.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -83,11 +85,9 @@ public class MainApplication extends Application {
 		
 		
 		//Creating the main menu button, logout button, and add table button
-		if(user.isAdmin() == 1) {
+	
 			VBox inputs = addAdminInputs();
-		}else {
-			VBox inputs = addInputs();
-		}
+		
 		
 		
 		border.setTop(topMenu);
