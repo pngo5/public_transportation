@@ -2,6 +2,7 @@ package GUI;
 
 import Exceptions.RegistrationException;
 import BusinessLogic.RegisterNewUser;
+import Database.Mysql;
 import Objects.User;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -27,6 +28,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.sql.SQLException;
+
 import javafx.scene.layout.AnchorPane;
 import java.util.ResourceBundle;
 
@@ -278,25 +281,35 @@ RegistrationException re = new RegistrationException();
         AlertBox.display("Invalid Password", "Password should contain a an uppercase letter");
         }else if(re.hasCorrectSnn(user) == false) {
         AlertBox.display("Invalid SSN", "Format of SSN XXX-XX-XXXX");
-        }else {
-        try {
-r.addUserToDataBase(user);
-} catch (Exception e2) {
-// TODO Auto-generated catch block
-e2.printStackTrace();
-}
-       
-       
-        // This code take user to login.
-        Login lgn = new Login();
-        try {
-        lgn.start(primaryStage);
-        } catch (Exception e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-        }
-        }
-        });
+        } else
+			try {
+				if(Mysql.checkMemberID(usernameText.getText().toString())==true) {
+					 AlertBox.display("Username already taken! ", "Please enter another Username!");
+				}else{
+					try { 
+						r.addUserToDataBase(user);
+						}
+					 catch (Exception e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
+					
+					// This code take user to login.
+					Login lgn = new Login();
+					try {
+						lgn.start(primaryStage);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	
+});
        
         HBox hbox = new HBox();
         hbox.getChildren().addAll(registerButton, backToMain);

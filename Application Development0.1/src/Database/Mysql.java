@@ -282,7 +282,8 @@ public class Mysql {
 	}
 	
 	
-	public static boolean checkBusID(String busID) throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException{
+	public static boolean checkBusID(String busID) 
+			throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException{
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 		Statement stm = con.createStatement();
 		ResultSet rst = stm.executeQuery("SELECT * FROM schedule WHERE bus_id='"+busID+"'");

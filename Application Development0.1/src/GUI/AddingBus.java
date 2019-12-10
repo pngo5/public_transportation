@@ -200,14 +200,16 @@ public class AddingBus extends Application {
            			passengarCountText.getText().isEmpty()) {
            		AlertBox.display("ERROR!", "You are missing some inputs.");
            	}
-           	else {           	
+           	
+           	else{        
+           		Mysql ms = new Mysql();
            try {
 			if(Mysql.checkBusID(busID.getText().toString())==true) {
 				AlertBox.display("ERROR!", "BusID already used!");
 			   }
+			
 			   	else
 			   	{
-			   		Mysql ms = new Mysql();
 			   		try {
 						ms.adminUpdateBus(BusSchedule);;
 					} catch (Exception e2) {
