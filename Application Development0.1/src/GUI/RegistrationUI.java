@@ -237,6 +237,8 @@ public class RegistrationUI extends Application {
         Button backToMain = new Button();
         	//Adding back to Main Menu button
         	backToMain = new Button("Back");
+        	backToMain.setMinWidth(100);
+        	backToMain.setAlignment(Pos.CENTER);;
       		backToMain.setOnAction(e -> {
       			Login mm = new Login();
       			try {
@@ -248,6 +250,8 @@ public class RegistrationUI extends Application {
       		});
         
         Button registerButton = new Button("Sign Up");
+        registerButton.setMinWidth(100);
+        registerButton.setAlignment(Pos.CENTER);
         
         /**
 		 * This will create a user object and gather all the inputed user Data to the database;
@@ -335,10 +339,7 @@ public class RegistrationUI extends Application {
 		
 	}
 	
-	private String getString(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public GridPane registrationGrid() {
 		GridPane gridPane = new GridPane();

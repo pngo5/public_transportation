@@ -69,7 +69,8 @@ public class MainApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		window.setTitle("Main Application (User)");
+		window.setTitle("Main Application");
+		window.setResizable(false);
 		//window.getIcons().add(new ("icon.png"));
 
 		//Create BorderPane
@@ -98,7 +99,7 @@ public class MainApplication extends Application {
 		border.setCenter(grid);
 		border.setRight(inputs);
 		
-		Scene scene = new Scene(border, 1000, 550);
+		Scene scene = new Scene(border, 1300, 500);
 		//scene.getStylesheets().add("Layout.css");
 		scene.getStylesheets().add("Layout.css");
 		window.getIcons().add(new Image("icon.png"));
@@ -179,13 +180,14 @@ public class MainApplication extends Application {
 		VBox v = new VBox();
 		v.setPadding(new Insets(10));
 	    v.setSpacing(8);
+	    v.setAlignment(Pos.CENTER);
 	    
 		 Text title = new Text("Controllers");
 		 title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		 
 		
 		 logOut = new Button("Logout");
-	        logOut.setMinWidth(105);
+	        logOut.setMinWidth(145);
 	        logOut.setOnAction(e -> {
 	              Login mm = new Login();
 	              try {
@@ -197,7 +199,7 @@ public class MainApplication extends Application {
 	          });
 
 	        backToMainMenu = new Button("Main Menu");
-	        backToMainMenu.setMinWidth(105);
+	        backToMainMenu.setMinWidth(145);
 	        backToMainMenu.setOnAction(e -> {
 	              Login mm = new Login();
 	              try {
@@ -262,8 +264,8 @@ public class MainApplication extends Application {
 		endLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
 
 
-		passengerCount = new TableColumn<>("Passenger Count");
-		passengerCount.setMinWidth(45);
+		passengerCount = new TableColumn<>("Seats");
+		passengerCount.setMinWidth(80);
 		passengerCount.setCellValueFactory(new PropertyValueFactory<>("passengerCount"));
 		
 		
@@ -400,18 +402,19 @@ public class MainApplication extends Application {
 		VBox v = new VBox();
 		v.setPadding(new Insets(10));
 	    v.setSpacing(8);
+	    v.setAlignment(Pos.CENTER);
 	    
 		 Text title = new Text("Controllers");
 		 title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 		 
 		 adminRemoveBusSystem = new Button("Remove Bus Schedule");
-		 adminRemoveBusSystem.setMinWidth(105);
+		 adminRemoveBusSystem.setMinWidth(145);
 		 adminRemoveBusSystem.setOnAction(e ->{
 			 deleteButtonClicked();
 		 });
 		
 		 adminUpdateBusSystem = new Button("Update Bus Schedule");
-		 adminUpdateBusSystem.setMinWidth(105);
+		 adminUpdateBusSystem.setMinWidth(145);
 		 adminUpdateBusSystem.setOnAction(e ->{
 			 AddingBus ab = new AddingBus();
 			 try {
@@ -424,7 +427,7 @@ public class MainApplication extends Application {
 		 });
 		 
 		 logOut = new Button("Logout");
-	        logOut.setMinWidth(105);
+	        logOut.setMinWidth(145);
 	        logOut.setOnAction(e -> {
 	              Login mm = new Login();
 	              try {
@@ -436,7 +439,7 @@ public class MainApplication extends Application {
 	          });
 
 	        backToMainMenu = new Button("Main Menu");
-	        backToMainMenu.setMinWidth(105);
+	        backToMainMenu.setMinWidth(145);
 	        backToMainMenu.setOnAction(e -> {
 	              Login mm = new Login();
 	              try {

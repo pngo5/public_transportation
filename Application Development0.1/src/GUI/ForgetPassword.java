@@ -92,10 +92,11 @@ public void start(Stage primaryStage) throws Exception {
         grid.add( securityQuestion, 1,5); 
         
         
-        Button loginButton = new Button("Show Password");
-        loginButton.setAlignment(Pos.CENTER);
-        grid.add(loginButton,1,6); 
-        loginButton.setOnAction(e -> {
+        Button passwordButton = new Button("Show Password");
+        passwordButton.setAlignment(Pos.CENTER);
+        passwordButton.setMinWidth(110);
+        grid.add(passwordButton,1,6); 
+        passwordButton.setOnAction(e -> {
 			Login m1 = new Login();
 			
 			//TODO use this code to input into the table list
@@ -126,6 +127,7 @@ public void start(Stage primaryStage) throws Exception {
         //Adding back to Main Menu button
         backToMain.setAlignment(Pos.CENTER);
         backToMain = new Button("Back");
+        backToMain.setMinWidth(110);
           grid.add(backToMain,1,7 );
           backToMain.setOnAction(e -> {
               Login mm = new Login();
