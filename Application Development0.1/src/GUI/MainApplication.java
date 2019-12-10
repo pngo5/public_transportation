@@ -3,6 +3,7 @@ package GUI;
 
 import java.sql.Connection;
 
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 
 import Database.Mysql;
 import Objects.BusSchedule;
+import Objects.Tickets;
+import Objects.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +39,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
 /**
  * This is the user main application It will include the ability for the user to
  * book reservations, delete their reservations, and view reservations.
@@ -50,10 +54,13 @@ public class MainApplication extends Application {
 	ChoiceBox<String> endCity;
 	Button backToMainMenu, logOut, removeBooking, addBooking, adminUpdateBusSystem, adminRemoveBusSystem;
 	TableColumn<BusSchedule, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
-	TableView<BusSchedule> table, userBookingTable;
+	TableView<BusSchedule> table;
+	TableView<Tickets> userBookingTable;
+	TableColumn<Tickets, String> tUserName,tBusNumber, tStartTime, tEndTime, tStartLocation, tEndLocation;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
     TextField busIDInput;
+    static User user;
    final ObservableList<BusSchedule> BusSystem1 = FXCollections.observableArrayList();	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -76,7 +83,12 @@ public class MainApplication extends Application {
 		
 		
 		//Creating the main menu button, logout button, and add table button
-		VBox inputs = addAdminInputs();
+		if(user.isAdmin() == 1) {
+			VBox inputs = addAdminInputs();
+		}else {
+			VBox inputs = addInputs();
+		}
+		
 		
 		border.setTop(topMenu);
 		border.setCenter(grid);
@@ -218,12 +230,12 @@ public class MainApplication extends Application {
 		/**
 		 * Creating view column for User and matching it to their respective instances.
 		 * 
-		 * 	private int busID;
-	private String departCity;
-	private String arrivalCity;
-	private String departTime;
-	private String arrivalTime;
-	private int passengerCount;
+		 * private int busID; 
+		 * private String departCity;
+		 * private String arrivalCity;
+		 * private String departTime;
+		 * private String arrivalTime;
+		 * private int passengerCount;
 		 */
 		busNumber = new TableColumn<>("Bus ID");
 		busNumber.setMinWidth(45);
@@ -291,33 +303,52 @@ public class MainApplication extends Application {
 		/**
 		 * 
 		 * Creating view column for User and matching it to their respective instances.
-		 * 
+		 * tUserName
+		 * public static String userName;
+			public static String busID;
+			private String departCity;
+			private String arrivalCity;
+			private String departTime;
+			private String arrivalTime;
 		 */
-		busNumber = new TableColumn<>("Bus ID");
-        busNumber.setMinWidth(100);
-        busNumber.setCellValueFactory(new PropertyValueFactory<>("busID"));
+		
+		tUserName = new TableColumn<>("User ID");
+		tUserName.setMinWidth(100);
+		tUserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
+		
+		tBusNumber = new TableColumn<>("Bus ID");
+		tBusNumber.setMinWidth(100);
+		tBusNumber.setCellValueFactory(new PropertyValueFactory<>("busID"));
 
-		startTime = new TableColumn<>("Start Time");
-		startTime.setMinWidth(100);
-		startTime.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+		tStartTime = new TableColumn<>("Start Time");
+		tStartTime.setMinWidth(100);
+		tStartTime.setCellValueFactory(new PropertyValueFactory<>("departCity"));
 
-		endTime = new TableColumn<>("End Time");
-		endTime.setMinWidth(100);
-		endTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+		tEndTime = new TableColumn<>("End Time");
+		tEndTime.setMinWidth(100);
+		tEndTime.setCellValueFactory(new PropertyValueFactory<>("departTime"));
 
+		tStartLocation = new TableColumn<>("Start Time");
+		tStartLocation.setMinWidth(100);
+		tStartLocation.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+
+		tEndLocation = new TableColumn<>("End Time");
+		tEndLocation.setMinWidth(100);
+		tEndLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+		
 		// Creating table
 
 		userBookingTable = new TableView<>();
 
 		// Populating table system
 
-		userBookingTable.setItems(getBusSystem());
-		userBookingTable.getColumns().addAll(busNumber, startTime, endTime);
+		userBookingTable.setItems(getUserBookings());
+		userBookingTable.getColumns().addAll(tBusNumber, tUserName,tStartTime,tEndTime,tStartLocation,tEndLocation);
 		
-       
-        //Button
-        removeBooking = new Button("Remove");
-        removeBooking.setOnAction(e -> {
+		  removeBooking = new Button("Remove");
+       /* //Button
+      
+       // removeBooking.setOnAction(e -> {
             refreshTable();
             try {
              
@@ -329,7 +360,7 @@ public class MainApplication extends Application {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-        });
+        })*/;
        
         
         //Create
@@ -346,6 +377,16 @@ public class MainApplication extends Application {
 		return vBox;
 
 	}
+	/**
+	 * 
+	 * 
+	 */
+	 public ObservableList<Tickets> getUserBookings(){
+	    	ObservableList<Tickets> products = Mysql.getUserBookingSchedule();	    	
+	    	return products;
+	    	
+	    }
+	
 	
 	/**
 	 * This will be the admin functions
@@ -425,21 +466,6 @@ public class MainApplication extends Application {
 	    	productSelected.forEach(allProducts::remove);
 	    	
 	    	Mysql.adminDeleteBus(tempItemTag);
-
-	    	
-	    	
-	    	
-	    	//System.out.println(bs.getBusID());
-	    	
-	    	//productSelected.forEach(allProducts::remove);
-	   
-	    	
-	    	
-	    	/*
-	    	 *  public void deleteButtonClicked() {
-    	
-    	}
-	    	 */
 	   }
 	
 	/**

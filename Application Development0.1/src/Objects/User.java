@@ -28,13 +28,16 @@ public class User {
 	private String ssn;
 	private String secQuestions;
 	private String secAnswers;
-	public static boolean isAdmin;
+	public int isAdmin;
 	
 	//
 
+	public User() {
+		
+	}
 
 	public User(String userName, String password, String firstName, String lastName, String address, String zip,
-			String state, String email, String ssn, String secQuestions, String secAnswers) {
+			String state, String email, String ssn, String secQuestions, String secAnswers, int isAdmin) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -47,150 +50,105 @@ public class User {
 		this.ssn = ssn;
 		this.secQuestions = secQuestions;
 		this.secAnswers = secAnswers;
+		this.isAdmin = isAdmin;
 	}
 
-
-
-	public String getUserName() {
+	public static String getUserName() {
 		return userName;
 	}
 
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public static void setUserName(String userName) {
+		User.userName = userName;
 	}
-
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
-
 
 	public String getLastName() {
 		return lastName;
 	}
 
-
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
 
 	public String getZip() {
 		return zip;
 	}
 
-
-
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
-
 
 	public String getState() {
 		return state;
 	}
 
-
-
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 
 	public String getSsn() {
 		return ssn;
 	}
 
-
-
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-
-
 
 	public String getSecQuestions() {
 		return secQuestions;
 	}
 
-
-
 	public void setSecQuestions(String secQuestions) {
 		this.secQuestions = secQuestions;
 	}
-
-
 
 	public String getSecAnswers() {
 		return secAnswers;
 	}
 
-
-
 	public void setSecAnswers(String secAnswers) {
 		this.secAnswers = secAnswers;
 	}
 
-
-
-	public boolean getIsAdmin() {
+	public int isAdmin() {
 		return isAdmin;
 	}
 
-
-
-	public void setIsAdmin(boolean isAdmin) {
+	public void setAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	
+
+
+
 }

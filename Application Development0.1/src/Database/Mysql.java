@@ -2,9 +2,11 @@ package Database;
 
 
 import java.sql.*;
+
 import java.sql.DriverManager;
 
 import Objects.BusSchedule;
+import Objects.Tickets;
 import Objects.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +22,9 @@ import java.util.ArrayList;
 
 
 public class Mysql {
-	
+	static User user;
 	static ObservableList<BusSchedule> data;
+	static ObservableList<Tickets> data1;
 	private TableColumn busNumber;
 	private TableColumn startTime;
 	private TableColumn endTime;
@@ -59,7 +62,60 @@ public class Mysql {
 		return null;
 	}
 	
+	
+	public static User getUserObject() {
 		
+		try {
+			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");		
+						
+			ResultSet rs = con.createStatement().executeQuery("select users.user_id, users.password,"
+					+ " users.first_name, users.last_name, users.address, users.zip, users.state, users.email, users.zip, "
+					+ "users.ssn, users.question, users.answer, users.admin;");
+			
+		
+			while(rs.next()) {
+				user = new User(rs.getString(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),
+						rs.getString(10), rs.getString(11), rs.getInt(12));
+			}
+			return user;
+	
+			
+	}catch(Exception e) {
+		System.out.print(e);
+	}
+		return null;
+		
+	}
+	
+
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public static ObservableList<Tickets> getUserBookingSchedule() {
+		
+		try {
+			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");		
+			data1 = FXCollections.observableArrayList();			
+			ResultSet rs = con.createStatement().executeQuery("select schedule.bus.id, schedule.depart_city,"
+					+ " schedule.arrival_city, schedule.depart_time, schedule.arrival_time, booking.bus_id;");
+		
+			while(rs.next()) {
+				data1.add(new Tickets(rs.getString(1), rs.getInt(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6)));
+			}
+			return data1;
+	
+			
+	}catch(Exception e) {
+		System.out.print(e);
+	}
+		return null;
+	}
+	
+	
 
 	public static ArrayList<String> get() {
 		
