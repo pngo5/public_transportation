@@ -53,6 +53,26 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
+	public User(String userName, String password, String firstName, String lastName, String address, String zip,
+			String state, String email, String ssn, String secQuestions, String secAnswers) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.zip = zip;
+		this.state = state;
+		this.email = email;
+		this.ssn = ssn;
+		this.secQuestions = secQuestions;
+		this.secAnswers = secAnswers;
+	
+	}
+	
+	
+	
+	
 	public static String getUserName() {
 		return userName;
 	}

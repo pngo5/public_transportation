@@ -30,6 +30,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import javafx.scene.layout.AnchorPane;
 import java.util.ResourceBundle;
 
@@ -162,13 +165,13 @@ public class AddingBus extends Application {
         passengarCountText.setMaxWidth(230);;
         gridPane.add(passengarCountText, 1, 6);
         
-        Button backToMain = new Button();
+        Button backToMainApp  = new Button();
         	//Adding back to Main Menu button
-        	backToMain = new Button("Back");
-      		gridPane.add(backToMain, 1,8);
-      		backToMain.setMinWidth(110);
-      		backToMain.setOnAction(e -> {
-      			Login mm = new Login();
+        	backToMainApp = new Button("Back");
+      		gridPane.add(backToMainApp , 1,8);
+      		backToMainApp .setMinWidth(110);
+      		backToMainApp .setOnAction(e -> {
+      			MainApplication mm = new MainApplication();
       			try {
       				mm.start(window);
       			} catch (Exception e1) {
@@ -197,21 +200,33 @@ public class AddingBus extends Application {
            			passengarCountText.getText().isEmpty()) {
            		AlertBox.display("ERROR!", "You are missing some inputs.");
            	}
-           	else
-           	{
-           		Mysql ms = new Mysql();
-           		try {
-   					ms.adminUpdateBus(BusSchedule);;
-   				} catch (Exception e2) {
-   					// TODO Auto-generated catch block
-   					e2.printStackTrace();
-   				}
-           		
-           		
-           		// This code take user to login.
-           		
-           	}
-           });
+           	else {           	
+           try {
+			if(Mysql.checkBusID(busID.getText().toString())==true) {
+				AlertBox.display("ERROR!", "BusID already used!");
+			   }
+			   	else
+			   	{
+			   		Mysql ms = new Mysql();
+			   		try {
+						ms.adminUpdateBus(BusSchedule);;
+					} catch (Exception e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+			   		// This code take user to login.	   		
+			   	}
+           } catch (SQLIntegrityConstraintViolationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+           	} });
            
            HBox hbox = new HBox();
         

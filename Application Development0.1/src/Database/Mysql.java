@@ -88,6 +88,10 @@ public class Mysql {
 		
 	}
 	
+	
+	
+	
+	
 
 	/**
 	 * 
@@ -247,14 +251,41 @@ public class Mysql {
 			System.out.println(u.getUserName());
 		}
 	}
-	
-
+	public static void  nothingPost(User w) throws Exception {
+		final String user = w.getUserName();
+		final String password = w.getPassword();
+		final String var1 = w.getFirstName();
+		final String var2 = w.getLastName();
+		final String addy = w.getAddress();
+		final String zip = w.getZip();
+		final String state = w.getState();
+		final String email = w.getEmail();
+		final String ssn = w.getSsn();
+		final String question = w.getSecQuestions();
+		final String answer = w.getSecAnswers();
+		try {
+			Connection conn = getConnection();
+			PreparedStatement posted = conn.prepareStatement("INSERT INTO users  (user_id, password, first_name, last_name, address, zip, state, email, ssn, question, answer, admin) VALUES('"+user+"','"+password+"','"+var1+"', '"+var2+"' , '"+addy+"' , '"+zip+"' , '"+state+"','"+email+"','"+ssn+"', '"+question+"' , '"+answer+"')");
+			posted.executeUpdate();
+			}catch(Exception e) {System.out.println(e);}
+			finally {
+				System.out.println("Insert Completed12");
+				System.out.println(w.getUserName());
+			}
+		}
 	public static boolean checkMemberID(String 
 			userName) throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException {
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 		Statement stm = con.createStatement();
 		ResultSet rst = stm.executeQuery("SELECT * FROM users WHERE user_Id='"+userName+"'");
-		
+		return rst.next();
+	}
+	
+	
+	public static boolean checkBusID(String busID) throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException{
+		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+		Statement stm = con.createStatement();
+		ResultSet rst = stm.executeQuery("SELECT * FROM schedule WHERE bus_id='"+busID+"'");
 		return rst.next();
 	}
 	

@@ -42,7 +42,7 @@ public class RegistrationUI extends Application {
 	
 	Button registerButton;
 	Stage window;
-	TextField firstNameText, lastNameText, addressText, zipText, emailText, usernameText, stateBox, securityATextField;
+	TextField firstNameText, lastNameText, addressText, zipText, emailText, usernameText, stateBox, securityATextField,admin;
 	PasswordField passwordText, ssnTextField;
 	ChoiceBox<String> securityQChoiceBox;
 	User user;
@@ -238,7 +238,6 @@ public class RegistrationUI extends Application {
         	//Adding back to Main Menu button
         	backToMain = new Button("Back");
         	backToMain.setMinWidth(100);
-        	backToMain.setAlignment(Pos.CENTER);;
       		backToMain.setOnAction(e -> {
       			Login mm = new Login();
       			try {
@@ -251,7 +250,7 @@ public class RegistrationUI extends Application {
         
         Button registerButton = new Button("Sign Up");
         registerButton.setMinWidth(100);
-        registerButton.setAlignment(Pos.CENTER);
+   
         
         /**
 		 * This will create a user object and gather all the inputed user Data to the database;
@@ -291,7 +290,7 @@ public class RegistrationUI extends Application {
 						 AlertBox.display("Username already taken! ", "Please enter another Username!");
 					}else{
 						try { 
-							r.addUserToDataBase(user);
+							r.nothingPost(user);
 							}
 						 catch (Exception e2) {
 							// TODO Auto-generated catch block
