@@ -17,7 +17,7 @@ public class User {
 	 * zip, state, username, password, email, SSN and a security question for
 	 * password recov
 	 */
-	private String userName;
+	public static String userName;
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -28,7 +28,7 @@ public class User {
 	private String ssn;
 	private String secQuestions;
 	private String secAnswers;
-	private short isAdmin;
+	public static boolean isAdmin;
 	
 	//
 
@@ -183,13 +183,13 @@ public class User {
 
 
 
-	public short getIsAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 
 
 
-	public void setIsAdmin(short isAdmin) {
+	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	
