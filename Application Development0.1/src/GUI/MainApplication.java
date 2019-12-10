@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import Database.Mysql;
 import Objects.BusSchedule;
@@ -65,6 +66,7 @@ public class MainApplication extends Application {
     static User user;
     VBox inputs;
    final ObservableList<BusSchedule> BusSystem1 = FXCollections.observableArrayList();	
+   final ObservableList<BusSchedule> BusSystem2 = FXCollections.observableArrayList();	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -109,15 +111,38 @@ public class MainApplication extends Application {
 	}
 	
 	public void refreshTable()  {
-		BusSystem1.clear();
+		BusSystem2.clear();
 		try {
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");			
 		ResultSet rs = con.createStatement().executeQuery("SELECT * FROM schedule");
 		while(rs.next()) {
-       BusSystem1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
+       BusSystem2.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3),
 					rs.getString(4), rs.getString(5), rs.getInt(6)));
 		}
-		table.setItems(BusSystem1);		
+		table.setItems(BusSystem2);		
+		con.close();
+		rs.close();
+	}catch(Exception e2) {
+		System.err.println(e2);
+	
+ }
+}
+	
+	public void refreshTableUser()  {
+		BusSystem2.clear();
+		
+		try {
+		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");			
+		ResultSet rs = con.createStatement().executeQuery("select booking.user_id, schedule.* FROM booking INNER JOIN schedule ON (schedule.bus_id = booking.bus_id) AND (booking.user_id = '"+Login.username+"');");
+		
+		
+		while(rs.next()) {
+
+			BusSystem2.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+		
+
+		}
+		userBookingTable.setItems(BusSystem2);		
 		con.close();
 		rs.close();
 	}catch(Exception e2) {
@@ -284,6 +309,14 @@ public class MainApplication extends Application {
        
         //Button
         Button addButton = new Button("Reserve");
+        addButton.setOnAction(e ->{
+        	try {
+				addUserBooking();
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
        
         
         //Create
@@ -357,10 +390,12 @@ public class MainApplication extends Application {
         removeBooking.setOnAction(e -> {
             refreshTable();
             try {
+            	
             	deleteUserButtonClicked();
+ 
             	
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
+                
                 e1.printStackTrace();
             }
         });
@@ -489,7 +524,19 @@ public class MainApplication extends Application {
 	    	
 	   }
 	 
-	 public void addUserBooking() {
+	 public void addUserBooking() throws SQLIntegrityConstraintViolationException, ClassNotFoundException, SQLException {
+		 	ObservableList<BusSchedule> productSelected, allProducts;
+	    	
+	    	allProducts = table.getItems();
+	  
+	    	productSelected = table.getSelectionModel().getSelectedItems();
+	    	BusSchedule asm = (BusSchedule)table.getSelectionModel().getSelectedItem();
+	    	String tempItemTag = asm.getBusID();
+	    	String u = Login.username;
+	    	
+	    	Mysql.userUpdateBus(tempItemTag, u);
+	    	
+	    	
 		 
 	 }
 	

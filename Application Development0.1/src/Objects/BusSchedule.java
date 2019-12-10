@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 
 public class BusSchedule {
 	
+	private String uID;
 	private String busID;
 	private String departCity;
 	private String arrivalCity;
@@ -12,7 +13,6 @@ public class BusSchedule {
 	private int passengerCount;
 	
 
-	
 	public BusSchedule(String busID, String departCity, String arrivalCity, String departTime, String arrivalTime,
 			int passengerCount) {
 		super();
@@ -24,6 +24,12 @@ public class BusSchedule {
 		this.passengerCount = passengerCount;
 	}
 	
+	
+	public BusSchedule(String string, String username) {
+		
+		this.busID = string;
+		this.uID = username;
+	}
 	
 	public String getBusID() {
 		return busID;

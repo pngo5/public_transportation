@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import GUI.AlertBox;
 import GUI.Login;
 
 
@@ -114,10 +115,9 @@ public class Mysql {
 			while(rs.next()) {
 
 			data1.add(new BusSchedule(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7)));
-			
-			return data1;
 	
 			}
+			return data1;
 	}catch(Exception e) {
 		System.out.print(e);
 	}
@@ -241,16 +241,21 @@ public class Mysql {
 		private int passengerCount;
 		 */
 			final String a1 = a;
-			final String a2 = a;
+			final String a2 =b;
+			
+			
 			
 			try {
 			Connection conn = getConnection();
+
 			PreparedStatement posted = conn.prepareStatement("INSERT INTO booking  (bus_id, user_id) VALUES('"+a1+"','"+a2+"')");
+			
 			posted.executeUpdate();
 			}catch(Exception e) {System.out.println(e);}
 			finally {
 				System.out.println("Insert Completed");
 			}
+			
 			
 		}
 
@@ -343,6 +348,14 @@ public class Mysql {
 		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
 		Statement stm = con.createStatement();
 		ResultSet rst = stm.executeQuery("SELECT * FROM schedule WHERE bus_id='"+busID+"'");
+		return rst.next();
+	}
+	
+	public static boolean checkUserBUS(String busid, String userid) 
+			throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException{
+		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+		Statement stm = con.createStatement();
+		ResultSet rst = stm.executeQuery("SELECT * FROM booking WHERE bus_id='"+busid+"' AND bus_id='"+userid+"'");
 		return rst.next();
 	}
 	
