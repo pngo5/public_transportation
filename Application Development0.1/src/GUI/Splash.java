@@ -20,7 +20,7 @@ public class Splash extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub1
 		 JWindow window = new JWindow();
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int centerX = screenSize.width/2;
