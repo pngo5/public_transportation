@@ -59,8 +59,9 @@ public class AddingBus extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		window.getIcons().add(new Image("icon.png"));
-		window.setTitle("Bus Resvoir - Registration");
+		window.setTitle("Bus updating - Adding new Buses");
 		window.setResizable(false);
+       
 		
 		//Creating gridPane
 				GridPane gridPane = new GridPane();
@@ -164,11 +165,14 @@ public class AddingBus extends Application {
         Button backToMain = new Button();
         	//Adding back to Main Menu button
         	backToMain = new Button("Back");
-      		gridPane.add(backToMain, 2, 12);
+      		gridPane.add(backToMain, 1,8);
+      		backToMain.setMinWidth(110);
       		backToMain.setOnAction(e -> {
+      			Mysql ms = new Mysql();
       			Login mm = new Login();
       			try {
-      				mm.start(window);
+      				ms.adminUpdateBus(BusSchedule);
+   					mm.start(window);
       			} catch (Exception e1) {
       				// TODO Auto-generated catch block
       				e1.printStackTrace();
@@ -180,7 +184,8 @@ public class AddingBus extends Application {
    		Schedules r = new Schedules();
    		RegistrationException re = new RegistrationException();
    		Button Adding = new Button("ADD");
-   		gridPane.add( Adding, 1, 12);
+   	     Adding.setMinWidth(110);
+   		gridPane.add( Adding, 1, 7);
            Adding.setOnAction(e -> {
            	String BusIDINT=busIDText.getText();
            	int passengarCountINT= Integer.parseInt(passengarCountText.getText());
