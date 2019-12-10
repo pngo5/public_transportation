@@ -139,7 +139,7 @@ public class Mysql {
 		
 	}
 	
-	public static void adminDeleteBus(BusSchedule s) {
+	public static void adminDeleteBus(String s) {
 		/**
 		 * private int busID;
 		private String departCity;
@@ -148,23 +148,16 @@ public class Mysql {
 		private String arrivalTime;
 		private int passengerCount;
 		 */
-			final String busID = s.getBusID();
-			final String departCity = s.getDepartCity();
-			final String arrivalCity = s.getArrivalCity();
-			final String departTime = s.getDepartTime();
-			final String arrivalTime = s.getArrivalTime();
-			final int passengerCount = s.getPassengerCount();
+			String busID = s;
 			
 			try {
 			Connection conn = getConnection();
-			PreparedStatement posted = conn.prepareStatement("DELETE FROM schedule  (bus_id, depart_city, arrival_city, depart_time ,"
-					+ " arrival_time, passenger_count) VALUES('"+busID+"','"+departCity+"','"+arrivalCity+"', '"+departTime+"' ,"
-							+ " '"+arrivalTime+"' , '"+passengerCount+"')");
+			PreparedStatement posted = conn.prepareStatement("DELETE FROM schedule WHERE bus_id ='"+busID+"'");
 			posted.executeUpdate();
 			}catch(Exception e) {System.out.println(e);}
 			finally {
 				System.out.println("Insert Completed");
-				System.out.println(s.getBusID());
+				
 			}
 			
 		}

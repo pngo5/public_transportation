@@ -1,5 +1,7 @@
 package Objects;
 
+import javafx.collections.ObservableList;
+
 public class BusSchedule {
 	
 	private String busID;
@@ -9,7 +11,7 @@ public class BusSchedule {
 	private String arrivalTime;
 	private int passengerCount;
 	
-	
+
 	
 	public BusSchedule(String busID, String departCity, String arrivalCity, String departTime, String arrivalTime,
 			int passengerCount) {

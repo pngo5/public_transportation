@@ -50,7 +50,7 @@ public class MainApplication extends Application {
 	ChoiceBox<String> endCity;
 	Button backToMainMenu, logOut, removeBooking, addBooking, adminUpdateBusSystem, adminRemoveBusSystem;
 	TableColumn<BusSchedule, String> busNumber, startTime, endTime, startLocation, endLocation, passengerCount;
-	TableView table, userBookingTable;
+	TableView<BusSchedule> table, userBookingTable;
 	Label fromCityLabel, toCityLabel, title, view, myBookedFlights;
 	TextField fromCityText, toCityText;
     TextField busIDInput;
@@ -231,27 +231,23 @@ public class MainApplication extends Application {
 
 		startTime = new TableColumn<>("Start Time");
 		startTime.setMinWidth(45);
-		startTime.setCellValueFactory(new PropertyValueFactory<>("departCity"));
+		startTime.setCellValueFactory(new PropertyValueFactory<>("departTime"));
 
 		endTime = new TableColumn<>("End Time");
 		endTime.setMinWidth(45);
-		endTime.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
+		endTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
 
 		startLocation = new TableColumn<>("Start Location");
 		startLocation.setMinWidth(45);
-		startLocation.setCellValueFactory(new PropertyValueFactory<>("departTime"));
+		startLocation.setCellValueFactory(new PropertyValueFactory<>("departCity"));
 
 		endLocation = new TableColumn<>("End Location");
 		endLocation.setMinWidth(45);
-		endLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
+		endLocation.setCellValueFactory(new PropertyValueFactory<>("arrivalCity"));
 
-
-		passengerCount = new TableColumn<>("Passenger count");
-		passengerCount.setMinWidth(30);
 
 		passengerCount = new TableColumn<>("Passenger Count");
 		passengerCount.setMinWidth(45);
-
 		passengerCount.setCellValueFactory(new PropertyValueFactory<>("passengerCount"));
 		
 		
@@ -299,15 +295,15 @@ public class MainApplication extends Application {
 		 */
 		busNumber = new TableColumn<>("Bus ID");
         busNumber.setMinWidth(100);
-        busNumber.setCellValueFactory(new PropertyValueFactory<>("busNumber"));
+        busNumber.setCellValueFactory(new PropertyValueFactory<>("busID"));
 
 		startTime = new TableColumn<>("Start Time");
 		startTime.setMinWidth(100);
-		startTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+		startTime.setCellValueFactory(new PropertyValueFactory<>("departTime"));
 
 		endTime = new TableColumn<>("End Time");
 		endTime.setMinWidth(100);
-		endTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+		endTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
 
 		// Creating table
 
@@ -365,7 +361,9 @@ public class MainApplication extends Application {
 		 
 		 adminRemoveBusSystem = new Button("Remove Bus Schedule");
 		 adminRemoveBusSystem.setMinWidth(105);
-		 
+		 adminRemoveBusSystem.setOnAction(e ->{
+			 deleteButtonClicked();
+		 });
 		
 		 adminUpdateBusSystem = new Button("Update Bus Schedule");
 		 adminUpdateBusSystem.setMinWidth(105);
@@ -414,15 +412,34 @@ public class MainApplication extends Application {
 	/**
 	 * 
 	 */
-	 /*public void deleteButtonClicked() {
+	 public void deleteButtonClicked() {
 	    	ObservableList<BusSchedule> productSelected, allProducts;
-	    	allProducts = table.getItems();
-	    	productSelected = table.getSelectionModel().getSelectedItems();
 	    	
-	    	BusSchedule s = new BusSchedule(productSelected);
+	    	allProducts = table.getItems();
+	  
+	    	productSelected = table.getSelectionModel().getSelectedItems();
+	    	BusSchedule asm = (BusSchedule)table.getSelectionModel().getSelectedItem();
+	    	String tempItemTag = asm.getBusID();
+	    	
 	    	
 	    	productSelected.forEach(allProducts::remove);
-	    	productSelected.forEach(allProducts::Mysql.adminDeleteBus(BusSchedule s));
+	    	
+	    	Mysql.adminDeleteBus(tempItemTag);
+
+	    	
+	    	
+	    	
+	    	//System.out.println(bs.getBusID());
+	    	
+	    	//productSelected.forEach(allProducts::remove);
+	   
+	    	
+	    	
+	    	/*
+	    	 *  public void deleteButtonClicked() {
+    	
+    	}
+	    	 */
 	   }
 	
 	/**
