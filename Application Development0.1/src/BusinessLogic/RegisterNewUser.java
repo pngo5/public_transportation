@@ -10,4 +10,9 @@ public class RegisterNewUser implements RegisteringNewUser {
 		Mysql.post(user);
 	}
 
+	public void nothingPost(User user) throws Exception {
+		Mysql.nothingPost(user);
+		
+	}
+	
 }
