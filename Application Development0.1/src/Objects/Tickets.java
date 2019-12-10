@@ -8,21 +8,22 @@ public class Tickets {
 	private String tArrivalCity;
 	private String tDepartTime;
 	private String tArrivalTime;
+	private int passengerCount;
 	
 	
+
 	
-	
-	public Tickets(String tUserName, int tBusID, String tDepartCity, String tArrivalCity, String tDepartTime,
-			String tArrivalTime) {
+	public Tickets(int tBusID, String tDepartCity, String tArrivalCity, String tDepartTime,
+			String tArrivalTime, int passengerCount) {
 		super();
-		this.tUserName = tUserName;
+		
 		this.tBusID = tBusID;
 		this.tDepartCity = tDepartCity;
 		this.tArrivalCity = tArrivalCity;
 		this.tDepartTime = tDepartTime;
 		this.tArrivalTime = tArrivalTime;
+		this.passengerCount = passengerCount;
 	}
-	
 	
 	public String gettUserName() {
 		return tUserName;
@@ -59,6 +60,12 @@ public class Tickets {
 	}
 	public void settArrivalTime(String tArrivalTime) {
 		this.tArrivalTime = tArrivalTime;
+	}
+	public int getPassengerCount() {
+		return passengerCount;
+	}
+	public void setPassengerCount(int passengerCount) {
+		this.passengerCount = passengerCount;
 	}
 	
 	

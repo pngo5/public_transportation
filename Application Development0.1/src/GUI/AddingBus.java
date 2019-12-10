@@ -196,9 +196,11 @@ public class AddingBus extends Application {
            	}
            	else
            	{
+           		MainApplication ma = new MainApplication();
            		Mysql ms = new Mysql();
            		try {
-   					ms.adminUpdateBus(BusSchedule);;
+   					ms.adminUpdateBus(BusSchedule);
+   					
    				} catch (Exception e2) {
    					// TODO Auto-generated catch block
    					e2.printStackTrace();

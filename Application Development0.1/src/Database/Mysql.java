@@ -20,11 +20,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import GUI.Login;
+
 
 public class Mysql {
 	static User user;
 	static ObservableList<BusSchedule> data;
-	static ObservableList<Tickets> data1;
+	static ObservableList<BusSchedule> data1;
 	private TableColumn busNumber;
 	private TableColumn startTime;
 	private TableColumn endTime;
@@ -94,21 +96,24 @@ public class Mysql {
 	 * 
 	 * @return
 	 */
-	public static ObservableList<Tickets> getUserBookingSchedule() {
-		
+	public static ObservableList<BusSchedule> getUserBookingSchedule() {
+		final String uID= Login.username;
 		try {
 			Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");		
-			data1 = FXCollections.observableArrayList();			
-			ResultSet rs = con.createStatement().executeQuery("select schedule.bus.id, schedule.depart_city,"
-					+ " schedule.arrival_city, schedule.depart_time, schedule.arrival_time, booking.bus_id;");
+			data1 = FXCollections.observableArrayList();	
+			//
+			//TODO
+			ResultSet rs = con.createStatement().executeQuery("select booking.user_id, schedule.* FROM booking INNER JOIN schedule ON (schedule.bus_id = booking.bus_id) AND (booking.user_id = '"+uID+"');");
+			
 		
 			while(rs.next()) {
-				data1.add(new Tickets(rs.getString(1), rs.getInt(2), rs.getString(3),
-						rs.getString(4), rs.getString(5), rs.getString(6)));
-			}
+
+				
+			data1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+			
 			return data1;
 	
-			
+			}
 	}catch(Exception e) {
 		System.out.print(e);
 	}
@@ -116,8 +121,11 @@ public class Mysql {
 	}
 	
 	
+	
 
 	public static ArrayList<String> get() {
+	
+		
 		
 		try {
 			Connection conn = getConnection();
@@ -198,7 +206,7 @@ public class Mysql {
 	
 	public static void adminDeleteBus(String s) {
 		/**
-		 * private int busID;
+		private int busID;
 		private String departCity;
 		private String arrivalCity;
 		private String departTime;

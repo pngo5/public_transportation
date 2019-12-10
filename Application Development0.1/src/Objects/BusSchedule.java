@@ -23,6 +23,8 @@ public class BusSchedule {
 		this.arrivalTime = arrivalTime;
 		this.passengerCount = passengerCount;
 	}
+	
+	
 	public String getBusID() {
 		return busID;
 	}

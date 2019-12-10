@@ -37,7 +37,16 @@ public class Login extends Application {
 	
 	Stage window;
 	public static int l;
+	public static String getUsername() {
+		return username;
+	}
 
+	public static void setUsername(String username) {
+		Login.username = username;
+	}
+
+
+	public static String username;
 	
 	public int getL() {
 		return l;
@@ -136,6 +145,7 @@ public class Login extends Application {
 					stmta.setString(2, passInput.getText());
 					ResultSet rsa = stmta.executeQuery();
 					if(rsa.next()) { 
+						username = rsa.getString(1);
 						
 						l = rsa.getInt(12);
 						
