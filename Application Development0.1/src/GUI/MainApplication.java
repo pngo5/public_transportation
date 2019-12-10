@@ -312,10 +312,17 @@ public class MainApplication extends Application {
         addButton.setOnAction(e ->{
         	try {
 				addUserBooking();
+				try {
+					start(window);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+        	
         });
        
         
@@ -392,6 +399,7 @@ public class MainApplication extends Application {
             try {
             	
             	deleteUserButtonClicked();
+            	
  
             	
             } catch (Exception e1) {
@@ -536,8 +544,7 @@ public class MainApplication extends Application {
 	    	
 	    	Mysql.userUpdateBus(tempItemTag, u);
 	    	
-	    	
-		 
+	     
 	 }
 	
 	/**

@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,9 +24,12 @@ import java.util.ArrayList;
 
 import GUI.AlertBox;
 import GUI.Login;
+import GUI.MainApplication;
+
 
 
 public class Mysql {
+	Stage window;
 	static User user;
 	static ObservableList<BusSchedule> data;
 	static ObservableList<BusSchedule> data1;
@@ -251,11 +256,12 @@ public class Mysql {
 			PreparedStatement posted = conn.prepareStatement("INSERT INTO booking  (bus_id, user_id) VALUES('"+a1+"','"+a2+"')");
 			
 			posted.executeUpdate();
+			
+			
 			}catch(Exception e) {System.out.println(e);}
 			finally {
 				System.out.println("Insert Completed");
 			}
-			///*****s
 			
 		}
 
