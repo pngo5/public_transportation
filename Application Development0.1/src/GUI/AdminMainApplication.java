@@ -1,6 +1,5 @@
 package GUI;
 
-
 import java.sql.Connection;
 
 
@@ -50,7 +49,7 @@ import javafx.stage.Stage;
  * endLocation; private double ticketPrice;
  * 
  */
-public class MainApplication extends Application {
+public class AdminMainApplication extends Application {
 	Stage window;
 	ChoiceBox<String> startCity;
 	ChoiceBox<String> endCity;
@@ -63,7 +62,6 @@ public class MainApplication extends Application {
 	TextField fromCityText, toCityText;
     TextField busIDInput;
     static User user;
-    VBox inputs;
    final ObservableList<BusSchedule> BusSystem1 = FXCollections.observableArrayList();	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -84,15 +82,12 @@ public class MainApplication extends Application {
 		//TODO Make an if statement to show user inputs or admin inputs.
 		
 		
-		Login l = new Login();
-		//Creating the main menu button, logout button, and add table button
-		if(l.getL() == 1) {
-			inputs = addAdminInputs();
-		}else {
-			inputs = addInputs();
-		}
 		
-		System.out.print(l.getL());
+		//Creating the main menu button, logout button, and add table button
+	
+			VBox inputs = addAdminInputs();
+		
+		
 		
 		border.setTop(topMenu);
 		border.setCenter(grid);

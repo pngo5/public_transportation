@@ -1,12 +1,7 @@
-
 package GUI;
 
 import java.sql.*;
-import java.util.Stack;
-
 import javax.swing.JOptionPane;
-
-import Objects.User;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -39,10 +34,19 @@ public class Login extends Application {
 	 * We are creating two Scenes one for Admin and one for User.
 	 *
 	 */
-	static User user;
+	
 	Stage window;
+	public static int l;
 
 	
+	public int getL() {
+		return l;
+	}
+
+	public void setL(int l) {
+		this.l = l;
+	}
+
 	public static void main(String[] args) {
 		/**
 		 * Launching into Javafx
@@ -130,14 +134,11 @@ public class Login extends Application {
 					PreparedStatement stmta = con.prepareStatement("SELECT * FROM users WHERE BINARY user_id=? AND BINARY password=?");
 					stmta.setString(1, nameInput.getText());
 					stmta.setString(2, passInput.getText());
-					
-					ResultSet rs = con.createStatement().executeQuery("select users.user_id, users.password,"
-							+ " users.first_name, users.last_name, users.address, users.zip, users.state, users.email, users.zip, "
-							+ "users.ssn, users.question, users.answer, users.admin;");
-					
-					 
 					ResultSet rsa = stmta.executeQuery();
-					if(rsa.next()) {
+					if(rsa.next()) { 
+						
+						l = rsa.getInt(12);
+						
 						
 						ma.start(window);
 					}
