@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 
 public class BusSchedule {
 	
-	static String busID;
+	private String busID;
 	private String departCity;
 	private String arrivalCity;
 	private String departTime;

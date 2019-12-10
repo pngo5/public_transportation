@@ -96,6 +96,7 @@ public class Mysql {
 	 * 
 	 * @return
 	 */
+	
 	public static ObservableList<BusSchedule> getUserBookingSchedule() {
 		final String uID= Login.username;
 		try {
@@ -108,8 +109,7 @@ public class Mysql {
 		
 			while(rs.next()) {
 
-				
-			data1.add(new BusSchedule(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6)));
+			data1.add(new BusSchedule(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7)));
 			
 			return data1;
 	
@@ -119,6 +119,30 @@ public class Mysql {
 	}
 		return null;
 	}
+	
+	public static void userDeleteBus(String s, String a) {
+		/**
+		private int busID;
+		private String departCity;
+		private String arrivalCity;
+		private String departTime;
+		private String arrivalTime;
+		private int passengerCount;
+		 */
+			String busID = s;
+			String uID =a;
+			
+			try {
+			Connection conn = getConnection();
+			PreparedStatement posted = conn.prepareStatement("DELETE FROM booking WHERE user_id= '"+uID+"' AND bus_id='"+busID+"';");
+			posted.executeUpdate();
+			}catch(Exception e) {System.out.println(e);}
+			finally {
+				System.out.println("Insert Completed");
+				
+			}
+			
+		}
 	
 	
 	
@@ -202,6 +226,30 @@ public class Mysql {
 		}
 		
 	}
+	
+	public static void userUpdateBus(String a, String b) {
+		/**
+		 * private int busID;
+		private String departCity;
+		private String arrivalCity;
+		private String departTime;
+		private String arrivalTime;
+		private int passengerCount;
+		 */
+			final String a1 = a;
+			final String a2 = a;
+			
+			try {
+			Connection conn = getConnection();
+			PreparedStatement posted = conn.prepareStatement("INSERT INTO booking  (bus_id, user_id) VALUES('"+a1+"','"+a2+"')");
+			posted.executeUpdate();
+			}catch(Exception e) {System.out.println(e);}
+			finally {
+				System.out.println("Insert Completed");
+			}
+			
+		}
+
 	
 	
 	public static void adminDeleteBus(String s) {

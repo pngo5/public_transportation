@@ -352,21 +352,18 @@ public class MainApplication extends Application {
 		userBookingTable.getColumns().addAll(tBusNumber,tStartTime,tEndTime,tStartLocation,tEndLocation,tPassengerCount);
 		
 		  removeBooking = new Button("Remove");
-       /* //Button
+    
       
-       // removeBooking.setOnAction(e -> {
+        removeBooking.setOnAction(e -> {
             refreshTable();
             try {
-             
-            	
-            	
-            	
+            	deleteUserButtonClicked();
             	
             } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-        })*/;
+        });
        
         
         //Create
@@ -473,6 +470,28 @@ public class MainApplication extends Application {
 	    	
 	    	Mysql.adminDeleteBus(tempItemTag);
 	   }
+	 
+	 public void deleteUserButtonClicked() {
+	    	ObservableList<BusSchedule> productSelected, allProducts;
+	    	
+	    	allProducts = userBookingTable.getItems();
+	  
+	    	productSelected = userBookingTable.getSelectionModel().getSelectedItems();
+	    	BusSchedule asm = (BusSchedule)userBookingTable.getSelectionModel().getSelectedItem();
+	    	String tempItemTag = asm.getBusID();
+	    	String u = Login.username;
+	    	
+	    	
+	    	System.out.print(tempItemTag);
+	    	Mysql.userDeleteBus(tempItemTag,u);
+	    	productSelected.forEach(allProducts::remove);
+	    	
+	    	
+	   }
+	 
+	 public void addUserBooking() {
+		 
+	 }
 	
 	/**
 	 * Start the main application

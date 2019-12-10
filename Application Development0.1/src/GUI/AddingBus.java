@@ -168,10 +168,8 @@ public class AddingBus extends Application {
       		gridPane.add(backToMain, 1,8);
       		backToMain.setMinWidth(110);
       		backToMain.setOnAction(e -> {
-      			Mysql ms = new Mysql();
       			Login mm = new Login();
       			try {
-      				ms.adminUpdateBus(BusSchedule);
    					mm.start(window);
       			} catch (Exception e1) {
       				// TODO Auto-generated catch block
