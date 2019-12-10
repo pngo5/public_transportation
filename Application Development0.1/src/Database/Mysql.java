@@ -201,11 +201,15 @@ public class Mysql {
 		return rst.next();
 	}
 	
+	public static boolean CheckAdmin(String UserID) throws SQLException, ClassNotFoundException,SQLIntegrityConstraintViolationException{
+		Connection con=DriverManager.getConnection("jdbc:mysql://34.74.172.98/bus_database","root","cis3270");
+		Statement stm = con.createStatement();
+		ResultSet rst = stm.executeQuery("SELECT * FROM users WHERE user_id=? AND admin=?");	 
+			int s = rst.getInt("admin");
+		return  s == 1;
+	}
 	
-	
-	
-	
-	
+
 	public static Connection getConnection() throws Exception  {
 		try {
 			String url = "jdbc:mysql://34.74.172.98/bus_database";
