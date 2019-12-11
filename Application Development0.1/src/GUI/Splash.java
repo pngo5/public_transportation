@@ -25,7 +25,7 @@ public class Splash extends Application {
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int centerX = screenSize.width/2;
 		    int centerY = screenSize.height/2;
-	      window.getContentPane().add(new JLabel("",new ImageIcon("/Users/Phat/Desktop/yup.gif"),SwingConstants.CENTER));
+	      window.getContentPane().add(new JLabel("",new ImageIcon("/Users/abdulhakimdarman/git/DataLegend0.1/Application Development0.1/src/yup.gif"),SwingConstants.CENTER));
 	      window.setBounds(centerX, centerY, 500, 500);
 	      window.setLocationRelativeTo(null);;
 

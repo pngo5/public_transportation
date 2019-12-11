@@ -311,7 +311,11 @@ public class MainApplication extends Application {
         Button addButton = new Button("Reserve");
         addButton.setOnAction(e ->{
         	try {
-				addUserBooking();
+        		if(!table.getSelectionModel().isEmpty())
+    				addUserBooking();
+
+        		
+				
 				try {
 					start(window);
 				} catch (Exception e1) {
@@ -397,14 +401,13 @@ public class MainApplication extends Application {
         removeBooking.setOnAction(e -> {
             refreshTable();
             try {
-            	
+            
             	deleteUserButtonClicked();
             	
- 
+            	start(window);
             	
             } catch (Exception e1) {
-                
-                e1.printStackTrace();
+                AlertBox.display("Error","No more reservations to remove");
             }
         });
        
